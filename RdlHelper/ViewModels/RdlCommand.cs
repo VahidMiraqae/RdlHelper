@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace RdlHelper
+namespace RdlHelper.ViewModels
 {
     internal abstract class RdlCommand : BaseVm
     {
@@ -12,7 +12,7 @@ namespace RdlHelper
             _mianVm = mainVm;
         }
 
-        public abstract string Name { get; } 
+        public abstract string Name { get; }
         public abstract void Perform(IEnumerable<string> filePaths);
         public abstract string Notify();
     }

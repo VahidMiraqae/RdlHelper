@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 
-namespace RdlHelper
+namespace RdlHelper.ViewModels
 {
     internal class HideParametersRdlCommand : RdlCommand
     {
@@ -46,7 +46,7 @@ namespace RdlHelper
                     if (hiddenNode.Count == 0)
                     {
                         var xmlEl = xmlDoc.CreateElement("Hidden", b.NamespaceURI);
-                        xmlEl.InnerText = "true"; 
+                        xmlEl.InnerText = "true";
 
                         b.AppendChild(xmlEl);
                     }

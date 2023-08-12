@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Documents;
 
-namespace RdlHelper
+namespace RdlHelper.ViewModels
 {
     internal class MainVm : BaseVm
     {

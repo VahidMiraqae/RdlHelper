@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 
-namespace RdlHelper
+namespace RdlHelper.ViewModels
 {
     internal class ShowParametersRdlCommand : RdlCommand
     {
         private string _message;
 
         public ShowParametersRdlCommand(MainVm mainVm) : base(mainVm)
-        { 
+        {
         }
 
         public override string Name => "Show Parameters";

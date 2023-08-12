@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace RdlHelper
+namespace RdlHelper.ViewModels
 {
     internal class BaseVm : INotifyPropertyChanged
     {
