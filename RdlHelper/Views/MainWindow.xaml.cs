@@ -1,20 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using RdlHelper.ViewModels;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Xml;
-using System.Xml.Linq;
-using RdlHelper.ViewModels;
 
 namespace RdlHelper
 {
@@ -32,18 +18,24 @@ namespace RdlHelper
             _mainVm = new MainVm();
             DataContext = _mainVm;
         }
-          
+
         private void WrapPanel_Drop(object sender, DragEventArgs e)
         {
             var droppedFiles = (string[])e.Data.GetData(DataFormats.FileDrop);
 
-            var bbb = droppedFiles.Where(aa => System.IO.Path.GetExtension(aa) == ".rdl");
+            var filteredFilePaths = droppedFiles.Where(aa => System.IO.Path.GetExtension(aa) == ".rdl");
+
+            if (!filteredFilePaths.Any())
+            {
+                _mainVm.Message = "no .rdl files";
+                return;
+            }
 
             var control = (FrameworkElement)e.OriginalSource;
             if (control.DataContext is RdlCommand rdlCommand)
             {
-                rdlCommand.Perform(bbb);
-                _mainVm.Message = rdlCommand.Notify();
+                var result = rdlCommand.Perform(filteredFilePaths);
+                _mainVm.Message = result;
             }
         }
     }

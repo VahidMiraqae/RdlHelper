@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Windows.Documents;
 
 namespace RdlHelper.ViewModels
 {
@@ -12,6 +11,7 @@ namespace RdlHelper.ViewModels
         {
             RdlCommands.Add(new HideParametersRdlCommand(this));
             RdlCommands.Add(new ShowParametersRdlCommand(this));
+            RdlCommands.Add(new SetDefaultParameteresRdlCommand(this));
         }
 
         public List<RdlCommand> RdlCommands { get; set; } = new List<RdlCommand>();

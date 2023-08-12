@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 
@@ -7,20 +6,14 @@ namespace RdlHelper.ViewModels
 {
     internal class ShowParametersRdlCommand : RdlCommand
     {
-        private string _message;
-
         public ShowParametersRdlCommand(MainVm mainVm) : base(mainVm)
         {
         }
 
         public override string Name => "Show Parameters";
 
-        public override string Notify()
-        {
-            return _message;
-        }
 
-        public override void Perform(IEnumerable<string> filePaths)
+        public override string Perform(IEnumerable<string> filePaths)
         {
             var sb = new StringBuilder();
 
@@ -33,7 +26,7 @@ namespace RdlHelper.ViewModels
 
                 if (parametersNode.Count != 1)
                 {
-                    return;
+                    return "No Report Parameters";
                 }
 
                 var a = (XmlElement)parametersNode[0];
@@ -54,7 +47,7 @@ namespace RdlHelper.ViewModels
                 sb.AppendLine($"'{System.IO.Path.GetFileName(filePath)}' => visible parameters.");
             }
 
-            _message = sb.ToString();
+            return sb.ToString();
         }
     }
 }

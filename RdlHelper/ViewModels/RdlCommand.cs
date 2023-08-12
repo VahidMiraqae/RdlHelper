@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace RdlHelper.ViewModels
 {
@@ -13,7 +12,6 @@ namespace RdlHelper.ViewModels
         }
 
         public abstract string Name { get; }
-        public abstract void Perform(IEnumerable<string> filePaths);
-        public abstract string Notify();
+        public abstract string Perform(IEnumerable<string> filePaths);
     }
 }
