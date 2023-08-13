@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using RdlHelper.ViewModels.RdlCommands;
 
 namespace RdlHelper.ViewModels
 {
@@ -9,12 +13,22 @@ namespace RdlHelper.ViewModels
 
         public MainVm()
         {
-            RdlCommands.Add(new HideParametersRdlCommand(this));
-            RdlCommands.Add(new ShowParametersRdlCommand(this));
-            RdlCommands.Add(new SetDefaultParameteresRdlCommand(this));
+            //RdlCommands.Add(new HideParametersVm(this));
+            //RdlCommands.Add(new ShowParametersVm(this));
+            //RdlCommands.Add(new SetDefaultParameteresVm(this));
+             
+
+            // this is the reflection approach
+
+            var thisAssembly = Assembly.GetAssembly(GetType());
+            var types = thisAssembly.GetTypes().Where(aa => aa.IsSubclassOf(typeof(RdlCommand)))
+                .Where(aa => aa.GetCustomAttribute<ObsoleteAttribute>() == null)
+                .Select(aa => (RdlCommand)Activator.CreateInstance(aa, this));
+
+            RdlCommands = new List<RdlCommand>(types);
         }
 
-        public List<RdlCommand> RdlCommands { get; set; } = new List<RdlCommand>();
+        public List<RdlCommand> RdlCommands { get; set; }
 
         public RdlCommand LastUsedRdlCommand { get => _command; set { _command = value; OnPropChanged(); } }
 

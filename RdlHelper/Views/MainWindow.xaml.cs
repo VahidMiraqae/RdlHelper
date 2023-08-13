@@ -1,6 +1,8 @@
 ﻿using RdlHelper.ViewModels;
+using RdlHelper.ViewModels.RdlCommands;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace RdlHelper
 {
@@ -19,7 +21,7 @@ namespace RdlHelper
             DataContext = _mainVm;
         }
 
-        private void WrapPanel_Drop(object sender, DragEventArgs e)
+        private void CommandCard_Drop(object sender, DragEventArgs e)
         {
             var droppedFiles = (string[])e.Data.GetData(DataFormats.FileDrop);
 
@@ -38,5 +40,16 @@ namespace RdlHelper
                 _mainVm.Message = result;
             }
         }
+
+        //private void Border_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        //{
+        //    if (sender is Border border)
+        //    {
+        //        if (border.DataContext is RdlCommand rdlCommand)
+        //        {
+
+        //        }
+        //    }
+        //}
     }
 }

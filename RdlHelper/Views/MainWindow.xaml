@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         MinWidth="660" 
         Title="MainWindow" Height="650" Width="650">
-    <DockPanel Margin="5" AllowDrop="True" Drop="WrapPanel_Drop" >
+    <DockPanel Margin="5" >
         <TextBlock Text="{Binding Message}" DockPanel.Dock="Top"/>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <ItemsControl ItemsSource="{Binding RdlCommands}">
@@ -19,13 +19,47 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid Width="200" Height="200" DataContext="{Binding }" Margin="0 0 5 5">
-                            <Border BorderThickness="1" BorderBrush="Black" 
-                    Background="#ddd" Padding="5">
+                            <Border BorderThickness="0" CornerRadius="10" AllowDrop="True" Drop="CommandCard_Drop"
+                     Padding="5"  >
+                                <Border.BorderBrush>
+                                    <RadialGradientBrush Center="0.1,.1" RadiusX="1.5" RadiusY="1.5">
+                                        <GradientStop Color="#000" Offset="0"  /> 
+                                        <GradientStop Color="#fff" Offset="1"/>
+                                    </RadialGradientBrush>
+                                </Border.BorderBrush>
+ 
+
+                                <Border.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="Background">
+                                            <Setter.Value>
+                                                <RadialGradientBrush Center="0.5,.5" RadiusX=".8" RadiusY=".8">
+                                                    <GradientStop  Color="#888" Offset="0"  />
+                                                    <GradientStop Color="#aaa" Offset="1"/>
+                                                </RadialGradientBrush>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background">
+                                                    <Setter.Value>
+                                                        <RadialGradientBrush Center="0.5,.5" RadiusX=".8" RadiusY=".8">
+                                                            <GradientStop Color="#666" Offset="0"  />
+                                                            <GradientStop Color="#aaa" Offset="1"/>
+                                                        </RadialGradientBrush>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Resources>
+                                
                                 <StackPanel VerticalAlignment="Center">
-                                    <TextBlock Opacity=".6">Drop .rdl files</TextBlock>
+                                    <!--<TextBlock Opacity=".6">Drop .rdl files</TextBlock>-->
                                     <Viewbox>
-                                        <TextBlock HorizontalAlignment="Center"
-                           VerticalAlignment="Center" Foreground="#999" FontWeight="Bold"
+                                        <TextBlock TextAlignment="Center" HorizontalAlignment="Center"
+                           VerticalAlignment="Center" Foreground="#bbb" FontWeight="Bold"
+                                                   FontFamily="Segoe ui black"
                                            Text="{Binding Name}"></TextBlock>
                                     </Viewbox>
                                 </StackPanel>

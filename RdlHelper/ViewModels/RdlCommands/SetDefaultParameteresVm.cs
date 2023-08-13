@@ -1,16 +1,17 @@
-﻿using RdlHelper.Views;
+﻿using RdlHelper.Models;
+using RdlHelper.Views;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace RdlHelper.ViewModels
+namespace RdlHelper.ViewModels.RdlCommands
 {
-    internal class SetDefaultParameteresRdlCommand : RdlCommand
+    internal class SetDefaultParameteresVm : RdlCommand
     {
-        public SetDefaultParameteresRdlCommand(MainVm mainVm) : base(mainVm)
+        public SetDefaultParameteresVm(MainVm mainVm) : base(mainVm)
         {
         }
 
-        public override string Name => "Set Default Parameters";
+        public override string Name => "Set Default\nParameters";
 
         public override string Perform(IEnumerable<string> filePaths)
         {
@@ -30,6 +31,10 @@ namespace RdlHelper.ViewModels
                 filePath = fsvm.SelectedItem;
             }
 
+
+            var doc = new RdlXmlDocument(filePath);
+
+            var parameters = doc.GetReportParametersElements();
 
 
             // if 1 Next 
