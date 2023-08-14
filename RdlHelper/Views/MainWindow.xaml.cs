@@ -40,16 +40,7 @@ namespace RdlHelper
                 _mainVm.Message = result;
             }
         }
-
-        //private void Border_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        //{
-        //    if (sender is Border border)
-        //    {
-        //        if (border.DataContext is RdlCommand rdlCommand)
-        //        {
-
-        //        }
-        //    }
-        //}
+         
+         
     }
 }

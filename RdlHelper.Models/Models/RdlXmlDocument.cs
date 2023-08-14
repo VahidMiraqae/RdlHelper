@@ -50,14 +50,14 @@ namespace RdlHelper.Models
             }
         }
 
-        public IEnumerable<RdlParameters> GetReportParametersElements()
+        public IEnumerable<RdlParameter> GetReportParametersElements()
         {
             var parametersNode = _xmlDocument.GetElementsByTagName("ReportParameters");
               
             var reportParametersEl = (XmlElement)parametersNode[0];
 
             var rdlParams = Enumerable.Range(0, reportParametersEl.ChildNodes.Count)
-                .Select(i => new RdlParameters(_xmlDocument, (XmlElement)reportParametersEl.ChildNodes[i])).ToArray();
+                .Select(i => new RdlParameter(_xmlDocument, (XmlElement)reportParametersEl.ChildNodes[i])).ToArray();
 
             return rdlParams;
         }

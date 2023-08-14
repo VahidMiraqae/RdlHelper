@@ -36,6 +36,11 @@ namespace RdlHelper.ViewModels.RdlCommands
 
             var parameters = doc.GetReportParametersElements();
 
+            
+            var vm = new DefaultParamsVm(parameters);
+            var window = new DefaultParamsWindow(vm);
+
+            window.ShowDialog();
 
             // if 1 Next 
             // if > 1  open New Windows

@@ -19,7 +19,7 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid Width="200" Height="200" DataContext="{Binding }" Margin="0 0 5 5">
-                            <Border BorderThickness="0" CornerRadius="10" AllowDrop="True" Drop="CommandCard_Drop"
+                            <Border BorderThickness="0"  CornerRadius="10" AllowDrop="True" Drop="CommandCard_Drop"
                      Padding="5"  >
                                 <Border.BorderBrush>
                                     <RadialGradientBrush Center="0.1,.1" RadiusX="1.5" RadiusY="1.5">
@@ -31,6 +31,7 @@
 
                                 <Border.Resources>
                                     <Style TargetType="Border">
+
                                         <Setter Property="Background">
                                             <Setter.Value>
                                                 <RadialGradientBrush Center="0.5,.5" RadiusX=".8" RadiusY=".8">
@@ -38,25 +39,13 @@
                                                     <GradientStop Color="#aaa" Offset="1"/>
                                                 </RadialGradientBrush>
                                             </Setter.Value>
-                                        </Setter>
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Background">
-                                                    <Setter.Value>
-                                                        <RadialGradientBrush Center="0.5,.5" RadiusX=".8" RadiusY=".8">
-                                                            <GradientStop Color="#666" Offset="0"  />
-                                                            <GradientStop Color="#aaa" Offset="1"/>
-                                                        </RadialGradientBrush>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Trigger>
-                                        </Style.Triggers>
+                                        </Setter> 
                                     </Style>
                                 </Border.Resources>
                                 
                                 <StackPanel VerticalAlignment="Center">
                                     <!--<TextBlock Opacity=".6">Drop .rdl files</TextBlock>-->
-                                    <Viewbox>
+                                    <Viewbox >
                                         <TextBlock TextAlignment="Center" HorizontalAlignment="Center"
                            VerticalAlignment="Center" Foreground="#bbb" FontWeight="Bold"
                                                    FontFamily="Segoe ui black"
