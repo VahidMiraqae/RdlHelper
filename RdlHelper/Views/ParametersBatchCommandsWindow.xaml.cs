@@ -37,7 +37,10 @@ namespace RdlHelper.Views
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-
+            if (sender is Button btn)
+            {
+                var dc = btn.DataContext;
+            }
         }
     }
 }
