@@ -37,7 +37,7 @@ namespace RdlHelper.ViewModels.RdlCommands
             var parameters = doc.GetReportParametersElements();
 
             
-            var vm = new DefaultParamsVm(parameters);
+            var vm = new EditParametersVm(parameters);
             var window = new DefaultParamsWindow(vm);
 
             window.ShowDialog();

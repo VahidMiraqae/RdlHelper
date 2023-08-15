@@ -18,9 +18,9 @@ namespace RdlHelper.Views
     /// </summary>
     public partial class DefaultParamsWindow : Window
     {
-        private DefaultParamsVm _pbcwVm;
+        private EditParametersVm _pbcwVm;
 
-        internal DefaultParamsWindow(DefaultParamsVm vm)
+        internal DefaultParamsWindow(EditParametersVm vm)
         { 
             DataContext = vm;
             InitializeComponent();
@@ -30,7 +30,7 @@ namespace RdlHelper.Views
         {
             if (sender is Button btn)
             {
-                var dc = (ReportParam)btn.DataContext;
+                var dc = (ReportParameterVm)btn.DataContext;
                 dc.DefaultValues.Add(new ParameterDefaultValue(""));
             }
         }
@@ -41,6 +41,11 @@ namespace RdlHelper.Views
             {
                 var dc = btn.DataContext;
             }
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            _pbcwVm.ApplyChanges();
         }
     }
 }
