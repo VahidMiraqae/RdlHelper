@@ -25,5 +25,19 @@ namespace RdlHelper.Views
             DataContext = vm;
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button btn)
+            {
+                var dc = (ReportParam)btn.DataContext;
+                dc.DefaultValues.Add(new ParameterDefaultValue(""));
+            }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

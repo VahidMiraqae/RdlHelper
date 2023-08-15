@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="ParametersBatchCommandsWindow"
         Height="450"
-        Width="800">
+        Width="701">
     <Window.Resources>
         <Style TargetType="DataGridCell">
             <Setter Property="Template">
@@ -29,33 +29,76 @@
                   Name="mainDg"
                   CanUserAddRows="False" 
                   FontSize="15"
+                  
+                  GridLinesVisibility="None"
                   HeadersVisibility="None">
             <DataGrid.Columns>
 
                 <DataGridTextColumn Width="auto"
-                                    Binding="{Binding Name}"> 
+                                    Binding="{Binding Type}">
                 </DataGridTextColumn>
                 
                 <DataGridTextColumn Width="auto"
-                                    Binding="{Binding Type}">
+                                    Binding="{Binding Name}"> 
                 </DataGridTextColumn>
                 
                 <DataGridTemplateColumn Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <DataGrid ItemsSource="{Binding DefaultValues}"
-                                      Margin="5"
-                                      AutoGenerateColumns="False"
-                                      CanUserAddRows="False"
-                                      HeadersVisibility="None">
+                            <DockPanel>
+                                <Button Content=""
+                                        FontFamily="segoe mdl2 assets"
+                                        Height="22"
+                                        Width="22"
+                                        VerticalContentAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Margin="0"
+                                        Click="Button_Click"
+                                        DockPanel.Dock="Left">
+                                    
+                                </Button>
+                                <ItemsControl ItemsSource="{Binding DefaultValues}" VerticalAlignment="Center"
+                                              Margin="3">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Margin="0 0 0 2">
+                                                <DockPanel>
+                                                    <Button Content=""
+                                                            FontFamily="segoe mdl2 assets"
+                                                            Width="22"
+                                                            Click="Button_Click_1"
+                                                            Margin="-1 0 0 0"
+                                                            DockPanel.Dock="Right"></Button>
+                                                    <Button Content=""
+                                                            FontFamily="segoe mdl2 assets"
+                                                            Width="22"
+                                                            Margin="0 0 -1 0"
+                                                            DockPanel.Dock="Left" />
+                                                    <Button Content=""
+                                                            FontFamily="segoe mdl2 assets"
+                                                            Width="22"
+                                                            Margin="0 0 -1 0"
+                                                            DockPanel.Dock="Left" />
+                                                    <TextBox Text="{Binding DefaultValue}" />
+                                                </DockPanel>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                                <!--<DataGrid ItemsSource="{Binding DefaultValues}"
+                                          Margin="5"
+                                          AutoGenerateColumns="False"
+                                          CanUserAddRows="False"
+                                          HeadersVisibility="None">
 
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn CanUserReorder="False"
-                                                        Width="*"
-                                                        Binding="{Binding DefaultValue}">
-                                    </DataGridTextColumn>
-                                </DataGrid.Columns>
-                            </DataGrid>
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn CanUserReorder="False"
+                                                            Width="*"
+                                                            Binding="{Binding DefaultValue}">
+                                        </DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>-->
+                            </DockPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

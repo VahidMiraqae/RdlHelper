@@ -4,9 +4,9 @@ namespace RdlHelper.Views
 {
     internal class ParameterDefaultValue : BaseVm
     {
-        public ParameterDefaultValue(string title)
+        public ParameterDefaultValue(string value)
         {
-            DefaultValue = title;
+            DefaultValue = value;
         }
         public string DefaultValue { get; set; }
     }

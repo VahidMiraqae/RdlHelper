@@ -1,5 +1,6 @@
 ﻿using RdlHelper.ViewModels;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace RdlHelper.Views
@@ -10,11 +11,11 @@ namespace RdlHelper.Views
         {
             Name = name;
             Type = type;
-            DefaultValues = defaultValues.Select(aa => new ParameterDefaultValue(aa)).ToList();
+            DefaultValues = new ObservableCollection<ParameterDefaultValue>(defaultValues.Select(aa => new ParameterDefaultValue(aa)));
         }
 
         public string Name { get; set; }        
         public string Type { get; set; }
-        public List<ParameterDefaultValue> DefaultValues { get; set; }
+        public ObservableCollection<ParameterDefaultValue> DefaultValues { get; set; }
     }
 }
