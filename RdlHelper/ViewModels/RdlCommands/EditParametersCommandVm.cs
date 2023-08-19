@@ -1,17 +1,18 @@
 ﻿using RdlHelper.Models;
 using RdlHelper.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace RdlHelper.ViewModels.RdlCommands
-{
-    internal class SetDefaultParameteresVm : RdlCommand
+{ 
+    internal class EditParametersCommandVm : RdlCommand
     {
-        public SetDefaultParameteresVm(MainVm mainVm) : base(mainVm)
+        public EditParametersCommandVm(MainVm mainVm) : base(mainVm)
         {
         }
 
-        public override string Name => "Set Default\nParameters";
+        public override string Name => "Edit\nParameters";
 
         public override string Perform(IEnumerable<string> filePaths)
         {
@@ -34,11 +35,13 @@ namespace RdlHelper.ViewModels.RdlCommands
 
             var doc = new RdlXmlDocument(filePath);
 
-            var parameters = doc.GetReportParametersElements();
+            var parameters = doc.GetParameters();
 
             
-            var vm = new EditParametersVm(parameters);
-            var window = new DefaultParamsWindow(vm);
+            var vm = new Views.EditParametersVm(parameters);
+            var window = new BatchEditParametersWindow(vm);
+
+            doc.ResetParameters(vm.GetParameters());
 
             window.ShowDialog();
 

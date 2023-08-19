@@ -5,9 +5,9 @@ using System.Xml;
 
 namespace RdlHelper.ViewModels.RdlCommands
 {
-    internal class HideParametersVm : RdlCommand
+    internal class HideParametersCommandVm : RdlCommand
     {
-        public HideParametersVm(MainVm mainVm) : base(mainVm)
+        public HideParametersCommandVm(MainVm mainVm) : base(mainVm)
         {
         }
 
@@ -20,11 +20,11 @@ namespace RdlHelper.ViewModels.RdlCommands
             foreach (var filePath in filePaths)
             {
                 var doc = new RdlXmlDocument(filePath);
-                var @params = doc.GetReportParametersElements();
+                var @params = doc.GetParameters();
 
                 foreach (var param in @params)
                 {
-                    param.MakeHidden();
+                    param.Hidden = true;
                 }
 
                 doc.Overwrite();

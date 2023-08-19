@@ -9,9 +9,9 @@ using static RdlHelper.Models.RdlXmlDocument;
 namespace RdlHelper.ViewModels.RdlCommands
 {
     //[Obsolete]
-    internal class ShowParametersVm : RdlCommand
+    internal class ShowParametersCommandVm : RdlCommand
     {
-        public ShowParametersVm(MainVm mainVm) : base(mainVm)
+        public ShowParametersCommandVm(MainVm mainVm) : base(mainVm)
         {
         }
 
@@ -25,11 +25,11 @@ namespace RdlHelper.ViewModels.RdlCommands
             foreach (var filePath in filePaths)
             {
                 var rdlXmlDoc = new RdlXmlDocument(filePath);
-                var parameters = rdlXmlDoc.GetReportParametersElements();
+                var parameters = rdlXmlDoc.GetParameters();
 
                 foreach (var parameter in parameters)
                 {
-                    parameter.MakeVisible();
+                    parameter.Hidden = false;
                 }
 
                 rdlXmlDoc.Overwrite();

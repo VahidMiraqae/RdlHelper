@@ -1,4 +1,4 @@
-﻿<Window x:Class="RdlHelper.Views.DefaultParamsWindow"
+﻿<Window x:Class="RdlHelper.Views.BatchEditParametersWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -27,7 +27,7 @@
         <StackPanel DockPanel.Dock="Bottom">
             <Button Click="Button_Click_2" Content="Apply"/>
         </StackPanel>
-        <DataGrid ItemsSource="{Binding Items}"
+        <DataGrid ItemsSource="{Binding Parameters}"
                   AutoGenerateColumns="False"
                   Name="mainDg"
                   CanUserAddRows="False" 

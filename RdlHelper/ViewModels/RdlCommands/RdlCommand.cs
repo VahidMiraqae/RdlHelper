@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace RdlHelper.ViewModels.RdlCommands
 {
+    [Obsolete]
     internal abstract class RdlCommand : BaseVm
     {
         protected MainVm _mianVm;

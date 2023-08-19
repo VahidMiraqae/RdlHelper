@@ -13,15 +13,23 @@ namespace RdlHelper.Views
         {
             _originalParams = parameters.Select(p => new ReportParameterVm(p)).ToDictionary(aa => aa.Name, aa => aa);
 
-            Paramters = new ObservableCollection<ReportParameterVm>(_originalParams.Values);
+            Parameters = new ObservableCollection<ReportParameterVm>(_originalParams.Values);
         }
-        public ObservableCollection<ReportParameterVm> Paramters { get; set; }
+        public ObservableCollection<ReportParameterVm> Parameters { get; set; }
 
         private Dictionary<string, ReportParameterVm> _originalParams; 
 
         internal void ApplyChanges()
         {
-             
+            foreach (var param in Parameters)
+            {
+                param.ApplyChanges();
+            }
+        }
+
+        internal IEnumerable<RdlParameter> GetParameters()
+        {
+            return Parameters.Select(aa => aa.RdlParameter);
         }
     }
 }

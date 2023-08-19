@@ -5,18 +5,37 @@ namespace RdlHelper.Models
 { 
     public class RdlParameter
     {
-        private XmlDocument _xmlDoc;
-        private XmlElement? _parameterEl;
+        private bool _hidden;
 
-        internal RdlParameter(XmlDocument xmlDoc, XmlElement? xmlElement)
+        public RdlXmlDocument RdlDocument { get; }
+        public XmlElement Element { get; }
+        public bool AllowBlank { get; internal set; }
+        public bool Hidden { get => _hidden; set
+            {
+                if (value)
+                {
+                    MakeHidden();
+                }
+                else
+                {
+                    MakeVisible();
+                }
+                _hidden = value;
+            }
+        }
+
+        public bool Nullable { get; internal set; }
+        public bool MultiValue { get; internal set; }
+
+        internal RdlParameter(RdlXmlDocument rdlXmlDoc, XmlElement xmlElement)
         {
-            _xmlDoc = xmlDoc;
-            _parameterEl = xmlElement;
+            RdlDocument = rdlXmlDoc;
+            Element = xmlElement;
         }
 
         public IEnumerable<string> GetDefaultValues()
         {
-            var valueEls = _parameterEl.GetElementsByTagName("Value");
+            var valueEls = Element.GetElementsByTagName("Value");
 
             foreach (var valueEl in valueEls)
             {
@@ -27,36 +46,36 @@ namespace RdlHelper.Models
 
         public string GetParameterName()
         {
-            var name = _parameterEl.GetAttribute("Name");
+            var name = Element.GetAttribute("Name");
             return name;
         }
 
         public string GetParameterType()
         {
-            var dtEl = _parameterEl.GetElementsByTagName("DataType")[0];
+            var dtEl = Element.GetElementsByTagName("DataType")[0];
             return dtEl.InnerText;
         }
 
-        public void MakeHidden()
+        private void MakeHidden()
         {
-            var hiddenNode = _parameterEl.GetElementsByTagName("Hidden");
+            var hiddenNode = Element.GetElementsByTagName("Hidden");
 
             if (hiddenNode.Count == 0)
             {
-                var xmlEl = _xmlDoc.CreateElement("Hidden", _parameterEl.NamespaceURI);
+                var xmlEl = RdlDocument.CreateElement("Hidden", Element.NamespaceURI);
                 xmlEl.InnerText = "true";
 
-                _parameterEl.AppendChild(xmlEl);
+                Element.AppendChild(xmlEl);
             }
         }
 
-        public void MakeVisible()
+        private void MakeVisible()
         {
-            var hiddenNode = _parameterEl.GetElementsByTagName("Hidden");
+            var hiddenNode = Element.GetElementsByTagName("Hidden");
 
             if (hiddenNode.Count != 0)
             {
-                _parameterEl.RemoveChild(hiddenNode[0]);
+                Element.RemoveChild(hiddenNode[0]);
             }
         }
     }

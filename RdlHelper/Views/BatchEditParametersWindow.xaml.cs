@@ -16,11 +16,11 @@ namespace RdlHelper.Views
     /// <summary>
     /// Interaction logic for ParametersBatchCommandsWindow.xaml
     /// </summary>
-    public partial class DefaultParamsWindow : Window
+    public partial class BatchEditParametersWindow : Window
     {
         private EditParametersVm _pbcwVm;
 
-        internal DefaultParamsWindow(EditParametersVm vm)
+        internal BatchEditParametersWindow(EditParametersVm vm)
         { 
             DataContext = vm;
             InitializeComponent();
