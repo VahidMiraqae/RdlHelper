@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RdlHelper.Models.Models
+namespace RdlHelper.Models
 {
     public enum RdlParameterDataType
     {
@@ -19,6 +19,6 @@ namespace RdlHelper.Models.Models
         Integer,
         [EnumMember(Value = "Float")]
         Float,
-        
+
     }
 }

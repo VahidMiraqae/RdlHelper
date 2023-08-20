@@ -1,12 +1,14 @@
-﻿using RdlHelper.Models.Models;
+﻿using RdlHelper.Models.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace RdlHelper.Models
 {
@@ -16,7 +18,11 @@ namespace RdlHelper.Models
         private XmlDocument _xmlDocument;
 
         public static Dictionary<RdlParameterDataType, string> RdlDataTypeToString { get; }
+
+        private ReportParameterCreator _reportParameterCreator;
+
         public string Namespace { get; }
+        protected XmlElement ReportParametersElement { get; }
 
         public RdlDocument(string rdlFilePath)
         {
@@ -25,19 +31,18 @@ namespace RdlHelper.Models
             _rdlFilePath = rdlFilePath;
             _xmlDocument = new XmlDocument();
             _xmlDocument.Load(_rdlFilePath);
+            _reportParameterCreator = new ReportParameterCreator(_xmlDocument);
 
-            Namespace = GetNamespace(_xmlDocument);
+            Namespace = _xmlDocument.ChildNodes[1].NamespaceURI;
 
             if (!IsValidRdlDocument())
             {
                 throw new Exception("bad rld file.");
             }
-        }
 
-        private static string? GetNamespace(XmlDocument xmlDocument)
-        {
-            return xmlDocument.ChildNodes[1].NamespaceURI;
+            ReportParametersElement = (XmlElement)_xmlDocument.GetElementsByTagName("ReportParameters")[0];
         }
+         
 
         static RdlDocument()
         {
@@ -69,67 +74,29 @@ namespace RdlHelper.Models
                 throw new FileNotFoundException();
             }
         }
-
-        private XmlElement GetParametersElement()
-        {
-            return (XmlElement)_xmlDocument.GetElementsByTagName("ReportParameters")[0];
-        }
+         
 
         public IEnumerable<RdlParameter> GetParameters()
         {  
-            var reportParametersEl = GetParametersElement();
-
-            var rdlParams = Enumerable.Range(0, reportParametersEl.ChildNodes.Count)
-                .Select(i => new RdlParameter(this, (XmlElement)reportParametersEl.ChildNodes[i])).ToArray();
+            var rdlParams = Enumerable.Range(0, ReportParametersElement.ChildNodes.Count)
+                .Select(i => new RdlParameter(_reportParameterCreator, (XmlElement)ReportParametersElement.ChildNodes[i])).ToArray();
 
             return rdlParams;
         }
 
         public RdlParameter CreateParameter(string name, RdlParameterDataType dataType, string prompt = null, RdlParameterOption options = null)
         {
-            var nameSpace = GetParametersElement().NamespaceURI;
-
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentNullException(nameof(name));
+             
 
-            if (string.IsNullOrEmpty(prompt))
-            {
-                prompt = name;
-            }
-
-            var reportParameter = _xmlDocument.CreateElement("ReportParameter", nameSpace);
-            
-            var nameAttr = _xmlDocument.CreateAttribute("Name", nameSpace);
-            nameAttr.Value = name;
-            reportParameter.Attributes.Append(nameAttr);
-
-            var dataTypeElement = _xmlDocument.CreateElement("DataType", nameSpace);
-            var dataTypeValue = _xmlDocument.CreateTextNode(RdlDataTypeToString[dataType]);
-            dataTypeElement.AppendChild(dataTypeValue);
-            reportParameter.AppendChild(dataTypeElement);
-
-            var promptElement = _xmlDocument.CreateElement("Prompt", nameSpace);
-            var promptValue = _xmlDocument.CreateTextNode(prompt);
-            promptElement.AppendChild(promptValue);
-            reportParameter.AppendChild(promptElement);
-
-            var rdlParameter = new RdlParameter(this, reportParameter);
-
-            rdlParameter.AllowBlank = options?.AllowsBlank ?? false;
-            rdlParameter.Nullable = options?.IsNullable ?? false;
-            rdlParameter.MultiValue = options?.MultiValue ?? false;
-
-            throw new NotImplementedException();
+            var rdlParam = _reportParameterCreator.Create(name, dataType, prompt, options);
+             
+            return rdlParam;
         }
 
-        public IEnumerable<XmlElement> GetParameterElements()
-        {
-            var reportParametersEl = GetParametersElement();
 
-            var els = Enumerable.Range(0, reportParametersEl.ChildNodes.Count)
-                .Select(i => (XmlElement)reportParametersEl.ChildNodes[i]);
-            return els;
-        }
+
 
         public void Overwrite()
         {
@@ -148,25 +115,38 @@ namespace RdlHelper.Models
 
         public void ResetParameters(IEnumerable<RdlParameter> newParameters)
         {
-            var els = GetParameterElements().ToArray();
-            var parametersEl = GetParametersElement();
+            // any parameter either existed before or not
+            // didn't exist: add it.
+            // existed: either changed or not
+            //      changed: overwrite it
+            //      didn't change: leave it alone
+
+            var els = GetParameterElements().ToArray(); 
 
             foreach (var item in els)
             {
-                parametersEl.RemoveChild(item);
+                ReportParametersElement.RemoveChild(item);
             }
 
 
             foreach (var item in newParameters)
             {
-                parametersEl.AppendChild(item.Element);
+                ReportParametersElement.AppendChild(item.Element);
             }
              
         }
 
-        internal XmlElement CreateElement(string elementName, string namespaceURI)
+        internal XmlElement CreateElement(string elementName)
         {
-            return _xmlDocument.CreateElement(elementName, namespaceURI);
+            return _xmlDocument.CreateElement(elementName, Namespace);
+        }
+
+
+        private IEnumerable<XmlElement> GetParameterElements()
+        {
+            var els = Enumerable.Range(0, ReportParametersElement.ChildNodes.Count)
+                .Select(i => (XmlElement)ReportParametersElement.ChildNodes[i]);
+            return els;
         }
     }
 

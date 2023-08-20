@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RdlHelper.Models.Services;
+using System;
 using System.Xml;
 
 namespace RdlHelper.Models
@@ -7,7 +8,7 @@ namespace RdlHelper.Models
     {
         private bool _hidden;
 
-        public RdlDocument RdlDocument { get; }
+        public ReportParameterCreator _reportParamCreator { get; }
         public XmlElement Element { get; }
         public bool AllowBlank { get; internal set; }
         public bool Hidden { get => _hidden; set
@@ -27,9 +28,9 @@ namespace RdlHelper.Models
         public bool Nullable { get; internal set; }
         public bool MultiValue { get; internal set; }
 
-        internal RdlParameter(RdlDocument rdlXmlDoc, XmlElement xmlElement)
+        internal RdlParameter(ReportParameterCreator reportParamCreator, XmlElement xmlElement)
         {
-            RdlDocument = rdlXmlDoc;
+            _reportParamCreator = reportParamCreator;
             Element = xmlElement;
         }
 
@@ -62,8 +63,7 @@ namespace RdlHelper.Models
 
             if (hiddenNode.Count == 0)
             {
-                var xmlEl = RdlDocument.CreateElement("Hidden", Element.NamespaceURI);
-                xmlEl.InnerText = "true";
+                var xmlEl = _reportParamCreator.CreateHiddenElement();
 
                 Element.AppendChild(xmlEl);
             }
@@ -77,6 +77,25 @@ namespace RdlHelper.Models
             {
                 Element.RemoveChild(hiddenNode[0]);
             }
+        }
+
+        public void SetDefaultValues(IEnumerable<string> newValues)
+        {
+            var vEl = (XmlElement)Element.GetElementsByTagName("Values")[0];
+
+            var values = Enumerable.Range(0, vEl.ChildNodes.Count).Select(i => vEl.ChildNodes[i]).ToArray();
+
+            foreach (var v in values)
+            {
+                vEl.RemoveChild(v);
+            }
+
+            foreach (var newValue in newValues)
+            {
+                var el = _reportParamCreator.CreateValueElement(newValue);
+                vEl.AppendChild(el);
+            }
+
         }
     }
 }

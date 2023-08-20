@@ -21,7 +21,8 @@ namespace RdlHelper.Views
         private EditParametersVm _pbcwVm;
 
         internal BatchEditParametersWindow(EditParametersVm vm)
-        { 
+        {
+            _pbcwVm = vm;
             DataContext = vm;
             InitializeComponent();
         }
@@ -45,6 +46,7 @@ namespace RdlHelper.Views
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
+            DialogResult = true;
             _pbcwVm.ApplyChanges();
         }
     }

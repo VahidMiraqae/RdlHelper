@@ -20,8 +20,17 @@
                 </Setter.Value>
             </Setter>
         </Style>
- 
- 
+
+        <Style TargetType="Button" x:Key="btnVisbility">
+            <Setter Property="Visibility" Value="Collapsed"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsMultiValue}" Value="True">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+
     </Window.Resources>
     <DockPanel Margin="5">
         <StackPanel DockPanel.Dock="Bottom">
@@ -50,6 +59,7 @@
                         <DataTemplate>
                             <DockPanel>
                                 <Button Content=""
+                                        Name="AddDefaultValue"
                                         FontFamily="segoe mdl2 assets"
                                         Height="22"
                                         Width="22"
@@ -57,8 +67,8 @@
                                         VerticalAlignment="Center"
                                         Margin="0"
                                         Click="Button_Click"
-                                        DockPanel.Dock="Left">
-                                    
+                                        Style="{StaticResource btnVisbility}"
+                                        DockPanel.Dock="Left"> 
                                 </Button>
                                 <ItemsControl ItemsSource="{Binding DefaultValues}" VerticalAlignment="Center"
                                               Margin="3">
@@ -76,11 +86,13 @@
                                                             FontFamily="segoe mdl2 assets"
                                                             Width="22"
                                                             Margin="0 0 -1 0"
+                                                            Style="{StaticResource btnVisbility}"
                                                             DockPanel.Dock="Left" />
                                                     <Button Content=""
                                                             FontFamily="segoe mdl2 assets"
                                                             Width="22"
                                                             Margin="0 0 -1 0"
+                                                            Style="{StaticResource btnVisbility}"
                                                             DockPanel.Dock="Left" />
                                                     <TextBox Text="{Binding DefaultValue}" />
                                                 </DockPanel>

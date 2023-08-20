@@ -41,18 +41,16 @@ namespace RdlHelper.ViewModels.RdlCommands
             var vm = new Views.EditParametersVm(parameters);
             var window = new BatchEditParametersWindow(vm);
 
-            doc.ResetParameters(vm.GetParameters());
+            var windowResult = window.ShowDialog();
 
-            window.ShowDialog();
+            if (windowResult == true)
+            {
+                doc.ResetParameters(vm.GetParameters());
+            }
 
-            // if 1 Next 
-            // if > 1  open New Windows
-            // view Name of Rdl Files 
-            // user Can Cancel Or chooes Rdl
+            doc.Overwrite();
 
-
-
-            throw new System.NotImplementedException();
+            return "Done";
         }
     }
 }

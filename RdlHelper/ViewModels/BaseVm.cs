@@ -7,9 +7,13 @@ namespace RdlHelper.ViewModels
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        protected void OnPropChanged([CallerMemberName] string propertyName = "")
+        protected void OnPropChanged( [CallerMemberName] string propertyName = "", params string[] propertyNames)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            foreach (var property in propertyNames)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+            }
         }
     }
 }

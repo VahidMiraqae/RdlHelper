@@ -9,7 +9,7 @@ namespace RdlHelper.Views
 {
     internal class EditParametersVm : BaseVm
     {
-        public EditParametersVm(IEnumerable<RdlParameter> parameters) 
+        public EditParametersVm(IEnumerable<RdlParameter> parameters)
         {
             _originalParams = parameters.Select(p => new ReportParameterVm(p)).ToDictionary(aa => aa.Name, aa => aa);
 
@@ -17,11 +17,11 @@ namespace RdlHelper.Views
         }
         public ObservableCollection<ReportParameterVm> Parameters { get; set; }
 
-        private Dictionary<string, ReportParameterVm> _originalParams; 
+        private Dictionary<string, ReportParameterVm> _originalParams;
 
         internal void ApplyChanges()
         {
-             foreach (var parameter in Parameters)
+            foreach (var parameter in Parameters)
             {
                 parameter.ApplyChanges();
             }
