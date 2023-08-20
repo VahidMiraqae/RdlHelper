@@ -43,15 +43,13 @@ namespace RdlHelper.Models
 
         }
 
-        public ReportParameter()
+        public ReportParameter(string name, string prompt, RdlParameterDataType dataType)
         {
-
+            Name = name;
+            Prompt = prompt;
+            DataType = dataType;
         }
 
-        public XmlElement ToXml()
-        {
-            throw new NotImplementedException();
-        }
          
         private bool DecideIfAllowedBlankCanBeSetTo(bool value)
         {
