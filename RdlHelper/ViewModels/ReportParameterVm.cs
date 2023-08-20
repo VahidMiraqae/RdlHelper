@@ -14,7 +14,7 @@ namespace RdlHelper.Views
         private string _name;
         private bool _canAddDefaultValue;
 
-        public ReportParameterVm(RdlParameter rdlParameter)
+        public ReportParameterVm(ReportParameter rdlParameter)
         {
             Parameter = rdlParameter;
             Name = Parameter.GetParameterName();
@@ -23,7 +23,7 @@ namespace RdlHelper.Views
 
         }
 
-        public RdlParameter Parameter { get; set; }
+        public ReportParameter Parameter { get; set; }
 
         public string Name { get => _name; set { _name = value; OnPropChanged(); } }
         public string Type { get => _type; set { _type = value; OnPropChanged(); } }

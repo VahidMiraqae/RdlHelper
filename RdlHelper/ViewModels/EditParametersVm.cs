@@ -9,7 +9,7 @@ namespace RdlHelper.Views
 {
     internal class EditParametersVm : BaseVm
     {
-        public EditParametersVm(IEnumerable<RdlParameter> parameters)
+        public EditParametersVm(IEnumerable<ReportParameter> parameters)
         {
             _originalParams = parameters.Select(p => new ReportParameterVm(p)).ToDictionary(aa => aa.Name, aa => aa);
 
@@ -27,7 +27,7 @@ namespace RdlHelper.Views
             }
         }
 
-        internal IEnumerable<RdlParameter> GetParameters()
+        internal IEnumerable<ReportParameter> GetParameters()
         {
             return Parameters.Select(p => p.Parameter);
         }

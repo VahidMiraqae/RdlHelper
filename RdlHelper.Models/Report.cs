@@ -1,5 +1,4 @@
-﻿using RdlHelper.Models.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -12,28 +11,25 @@ using System.Xml.Linq;
 
 namespace RdlHelper.Models
 {
-    public class RdlDocument
+    public class Report
     {
-        private string _rdlFilePath;
+        public const string Namespace = "http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition";
+
         private XmlDocument _xmlDocument;
 
-        public static Dictionary<RdlParameterDataType, string> RdlDataTypeToString { get; }
-
-        private ReportParameterCreator _reportParameterCreator;
-
-        public string Namespace { get; }
+        public string LoadedFromFilePath { get; set; }
+        public IEnumerable<ReportParameter> Parameters { get; set; } 
+          
         protected XmlElement ReportParametersElement { get; }
 
-        public RdlDocument(string rdlFilePath)
+        public Report(string rdlFilePath)
         {
             HandleFileNotExisting(rdlFilePath);
 
-            _rdlFilePath = rdlFilePath;
-            _xmlDocument = new XmlDocument();
-            _xmlDocument.Load(_rdlFilePath);
-            _reportParameterCreator = new ReportParameterCreator(_xmlDocument);
+            LoadedFromFilePath = rdlFilePath;
 
-            Namespace = _xmlDocument.ChildNodes[1].NamespaceURI;
+            _xmlDocument = new XmlDocument();
+            _xmlDocument.Load(LoadedFromFilePath);  
 
             if (!IsValidRdlDocument())
             {
@@ -42,14 +38,7 @@ namespace RdlHelper.Models
 
             ReportParametersElement = (XmlElement)_xmlDocument.GetElementsByTagName("ReportParameters")[0];
         }
-         
-
-        static RdlDocument()
-        {
-            var type = typeof(RdlParameterDataType);
-            RdlDataTypeToString = type.GetFields().Where(aa => aa.FieldType.FullName == type.FullName)
-                .ToDictionary(bb => (RdlParameterDataType)bb.GetValue(null), aa => aa.GetCustomAttribute<EnumMemberAttribute>().Value);
-        }
+          
 
         private bool IsValidRdlDocument()
         {
@@ -75,32 +64,11 @@ namespace RdlHelper.Models
             }
         }
          
-
-        public IEnumerable<RdlParameter> GetParameters()
-        {  
-            var rdlParams = Enumerable.Range(0, ReportParametersElement.ChildNodes.Count)
-                .Select(i => new RdlParameter(_reportParameterCreator, (XmlElement)ReportParametersElement.ChildNodes[i])).ToArray();
-
-            return rdlParams;
-        }
-
-        public RdlParameter CreateParameter(string name, RdlParameterDataType dataType, string prompt = null, RdlParameterOption options = null)
-        {
-            if (string.IsNullOrEmpty(name))
-                throw new ArgumentNullException(nameof(name));
-             
-
-            var rdlParam = _reportParameterCreator.Create(name, dataType, prompt, options);
-             
-            return rdlParam;
-        }
-
-
-
+           
 
         public void Overwrite()
         {
-            _xmlDocument.Save(_rdlFilePath);
+            _xmlDocument.Save(LoadedFromFilePath);
         }
 
         public void Save(string rdlFilePath)
@@ -113,7 +81,7 @@ namespace RdlHelper.Models
             _xmlDocument.Save(rdlFilePath);
         }
 
-        public void ResetParameters(IEnumerable<RdlParameter> newParameters)
+        public void ResetParameters(IEnumerable<ReportParameter> newParameters)
         {
             // any parameter either existed before or not
             // didn't exist: add it.
@@ -121,18 +89,7 @@ namespace RdlHelper.Models
             //      changed: overwrite it
             //      didn't change: leave it alone
 
-            var els = GetParameterElements().ToArray(); 
-
-            foreach (var item in els)
-            {
-                ReportParametersElement.RemoveChild(item);
-            }
-
-
-            foreach (var item in newParameters)
-            {
-                ReportParametersElement.AppendChild(item.Element);
-            }
+            
              
         }
 

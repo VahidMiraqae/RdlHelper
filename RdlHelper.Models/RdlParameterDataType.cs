@@ -9,15 +9,10 @@ namespace RdlHelper.Models
 {
     public enum RdlParameterDataType
     {
-        [EnumMember(Value = "String")]
-        Text,
-        [EnumMember(Value = "Boolean")]
+        String,
         Boolean,
-        [EnumMember(Value = "DateTime")]
         DateTime,
-        [EnumMember(Value = "Integer")]
         Integer,
-        [EnumMember(Value = "Float")]
         Float,
 
     }

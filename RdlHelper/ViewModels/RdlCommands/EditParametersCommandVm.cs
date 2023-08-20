@@ -33,7 +33,7 @@ namespace RdlHelper.ViewModels.RdlCommands
             }
 
 
-            var doc = new RdlDocument(filePath);
+            var doc = new Report(filePath);
 
             var parameters = doc.GetParameters();
 
