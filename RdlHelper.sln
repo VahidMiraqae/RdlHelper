@@ -5,7 +5,9 @@ VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RdlHelper", "RdlHelper\RdlHelper.csproj", "{60A6016B-B20A-4113-9742-A4732783D28B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RdlHelper.Models", "RdlHelper.Models\RdlHelper.Models.csproj", "{FBA97310-2B06-4B9D-A4E1-40B0C941FDC2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RdlHelper.Models", "RdlHelper.Models\RdlHelper.Models.csproj", "{FBA97310-2B06-4B9D-A4E1-40B0C941FDC2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RdlHelper.ConsoleTest", "RdlHelper.ConsoleTest\RdlHelper.ConsoleTest.csproj", "{C79F0939-54AA-403B-BA47-72FA745CA2A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{FBA97310-2B06-4B9D-A4E1-40B0C941FDC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FBA97310-2B06-4B9D-A4E1-40B0C941FDC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FBA97310-2B06-4B9D-A4E1-40B0C941FDC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C79F0939-54AA-403B-BA47-72FA745CA2A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C79F0939-54AA-403B-BA47-72FA745CA2A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C79F0939-54AA-403B-BA47-72FA745CA2A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C79F0939-54AA-403B-BA47-72FA745CA2A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

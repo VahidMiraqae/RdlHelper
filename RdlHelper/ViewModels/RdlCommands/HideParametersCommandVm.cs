@@ -19,7 +19,7 @@ namespace RdlHelper.ViewModels.RdlCommands
 
             foreach (var filePath in filePaths)
             {
-                var doc = new RdlXmlDocument(filePath);
+                var doc = new RdlDocument(filePath);
                 var @params = doc.GetParameters();
 
                 foreach (var param in @params)

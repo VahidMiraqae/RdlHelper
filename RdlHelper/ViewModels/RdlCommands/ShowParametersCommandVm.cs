@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
-using static RdlHelper.Models.RdlXmlDocument;
+using static RdlHelper.Models.RdlDocument;
 
 namespace RdlHelper.ViewModels.RdlCommands
 {
@@ -24,7 +24,7 @@ namespace RdlHelper.ViewModels.RdlCommands
 
             foreach (var filePath in filePaths)
             {
-                var rdlXmlDoc = new RdlXmlDocument(filePath);
+                var rdlXmlDoc = new RdlDocument(filePath);
                 var parameters = rdlXmlDoc.GetParameters();
 
                 foreach (var parameter in parameters)

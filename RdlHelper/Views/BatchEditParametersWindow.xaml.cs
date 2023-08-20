@@ -31,7 +31,7 @@ namespace RdlHelper.Views
             if (sender is Button btn)
             {
                 var dc = (ReportParameterVm)btn.DataContext;
-                dc.DefaultValues.Add(new ParameterDefaultValue(""));
+                dc.DefaultValues.Add(new DefaultValueVm(""));
             }
         }
 

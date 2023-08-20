@@ -7,7 +7,7 @@ namespace RdlHelper.Models
     {
         private bool _hidden;
 
-        public RdlXmlDocument RdlDocument { get; }
+        public RdlDocument RdlDocument { get; }
         public XmlElement Element { get; }
         public bool AllowBlank { get; internal set; }
         public bool Hidden { get => _hidden; set
@@ -27,7 +27,7 @@ namespace RdlHelper.Models
         public bool Nullable { get; internal set; }
         public bool MultiValue { get; internal set; }
 
-        internal RdlParameter(RdlXmlDocument rdlXmlDoc, XmlElement xmlElement)
+        internal RdlParameter(RdlDocument rdlXmlDoc, XmlElement xmlElement)
         {
             RdlDocument = rdlXmlDoc;
             Element = xmlElement;

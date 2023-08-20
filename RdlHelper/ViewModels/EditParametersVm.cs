@@ -21,15 +21,15 @@ namespace RdlHelper.Views
 
         internal void ApplyChanges()
         {
-            foreach (var param in Parameters)
+             foreach (var parameter in Parameters)
             {
-                param.ApplyChanges();
+                parameter.ApplyChanges();
             }
         }
 
         internal IEnumerable<RdlParameter> GetParameters()
         {
-            return Parameters.Select(aa => aa.RdlParameter);
+            return Parameters.Select(p => p.Parameter);
         }
     }
 }

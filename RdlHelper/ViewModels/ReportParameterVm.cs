@@ -11,27 +11,25 @@ namespace RdlHelper.Views
     {
         public ReportParameterVm(RdlParameter rdlParameter)
         {
-            _originalParam = rdlParameter;
-            Name = _originalParam.GetParameterName();
-            Type = _originalParam.GetParameterType(); ;
-            DefaultValues = new ObservableCollection<ParameterDefaultValue>(_originalParam.GetDefaultValues().Select(aa => new ParameterDefaultValue(aa)));
+            _rdlParameter = rdlParameter;
+            Name = _rdlParameter.GetParameterName();
+            Type = _rdlParameter.GetParameterType(); ;
+            DefaultValues = new ObservableCollection<DefaultValueVm>(_rdlParameter.GetDefaultValues().Select(aa => new DefaultValueVm(aa)));
         }
 
-        private RdlParameter _originalParam;
+        private RdlParameter _rdlParameter; 
 
         public string Name { get; set; }        
         public string Type { get; set; }
-        public ObservableCollection<ParameterDefaultValue> DefaultValues { get; set; }
-        public RdlParameter RdlParameter { get; set; }
+        public ObservableCollection<DefaultValueVm> DefaultValues { get; set; } 
 
         public bool DefaultValuesChanged => DefaultValues.Any(aa => aa.Chagned);
 
+        public RdlParameter Parameter { get; internal set; }
+
         internal void ApplyChanges()
         {
-            if (DefaultValuesChanged)
-            {
-                
-            }
+            
         }
     }
 }

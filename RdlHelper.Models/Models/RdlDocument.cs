@@ -10,20 +10,23 @@ using System.Xml;
 
 namespace RdlHelper.Models
 {
-    public class RdlXmlDocument
+    public class RdlDocument
     {
         private string _rdlFilePath;
         private XmlDocument _xmlDocument;
 
-        public static Dictionary<object, string> RdlDataTypeToString { get; }
+        public static Dictionary<RdlParameterDataType, string> RdlDataTypeToString { get; }
+        public string Namespace { get; }
 
-        public RdlXmlDocument(string rdlFilePath)
+        public RdlDocument(string rdlFilePath)
         {
             HandleFileNotExisting(rdlFilePath);
 
             _rdlFilePath = rdlFilePath;
             _xmlDocument = new XmlDocument();
-            _xmlDocument.Load(_rdlFilePath); 
+            _xmlDocument.Load(_rdlFilePath);
+
+            Namespace = GetNamespace(_xmlDocument);
 
             if (!IsValidRdlDocument())
             {
@@ -31,11 +34,16 @@ namespace RdlHelper.Models
             }
         }
 
-        static RdlXmlDocument()
+        private static string? GetNamespace(XmlDocument xmlDocument)
+        {
+            return xmlDocument.ChildNodes[1].NamespaceURI;
+        }
+
+        static RdlDocument()
         {
             var type = typeof(RdlParameterDataType);
             RdlDataTypeToString = type.GetFields().Where(aa => aa.FieldType.FullName == type.FullName)
-                .ToDictionary(bb => bb.GetValue(null), aa => aa.GetCustomAttribute<EnumMemberAttribute>().Value);
+                .ToDictionary(bb => (RdlParameterDataType)bb.GetValue(null), aa => aa.GetCustomAttribute<EnumMemberAttribute>().Value);
         }
 
         private bool IsValidRdlDocument()
@@ -90,6 +98,7 @@ namespace RdlHelper.Models
             }
 
             var reportParameter = _xmlDocument.CreateElement("ReportParameter", nameSpace);
+            
             var nameAttr = _xmlDocument.CreateAttribute("Name", nameSpace);
             nameAttr.Value = name;
             reportParameter.Attributes.Append(nameAttr);
