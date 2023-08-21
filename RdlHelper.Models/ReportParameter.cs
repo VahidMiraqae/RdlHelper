@@ -6,9 +6,11 @@ namespace RdlHelper.Models
 { 
     public class ReportParameter
     {
+        
         private bool _allowBlank;
         private bool _isMultiValue;
 
+        public string Namespace { get; private set; }
         public RdlParameterDataType DataType { get; }
         public string Prompt { get; }
         public string Name { get; }
@@ -21,11 +23,20 @@ namespace RdlHelper.Models
         public bool IsMultiValue { get => _isMultiValue; set { _isMultiValue = DecideIfIsMultiValueCanBeSetTo(value); } }
 
         public List<string> DefaultValues { get; private set; }
+        public Dictionary<string,string> ParameterValues { get; set; }
+
+        public ValueProvidingType DefaultValueType { get; set; }
+        public ValueProvidingType ValidValuesType { get; set; }
+
+        public QueryReference FromQueryDefaultValue { get; internal set; }
+        public QueryReference FromQueryValidParameterValue { get; internal set; }
 
         public ReportParameter(XmlElement xmlElement)
         {
+            Namespace = xmlElement.NamespaceURI;
+
             var nsManager = new XmlNamespaceManager(new NameTable());
-            nsManager.AddNamespace("ns", Report.Namespace); 
+            nsManager.AddNamespace("ns", xmlElement.NamespaceURI); 
 
             DataType = Enum.Parse<RdlParameterDataType>(xmlElement.SelectSingleNode("ns:DataType", nsManager).InnerText);
             Prompt = xmlElement.SelectSingleNode("ns:Prompt", nsManager).InnerText;
@@ -36,8 +47,36 @@ namespace RdlHelper.Models
             Nullable = xmlElement.SelectSingleNode("ns:Nullable", nsManager) != null;
             AllowBlank = xmlElement.SelectSingleNode("ns:AllowBlank", nsManager) != null;
 
-            var defaultValueNodes = xmlElement.SelectNodes("ns:DefaultValue/ns:Values/ns:Value", nsManager);
-            DefaultValues = Enumerable.Range(0, defaultValueNodes.Count).Select(i => defaultValueNodes[i].InnerText).ToList();
+            var defaultValueNode = xmlElement.SelectNodes("ns:DefaultValue", nsManager);
+
+            if (defaultValueNode == null)
+            {
+                DefaultValueType = ValueProvidingType.None;
+            }
+            else
+            {
+                var ValuesNode = xmlElement.SelectSingleNode("ns:DefaultValue/ns:Values", nsManager);
+
+                if (ValuesNode == null)
+                {
+                    DefaultValueType = ValueProvidingType.FromQuery;
+
+                    var dataSetReferenceNode = xmlElement.SelectSingleNode("ns:DefaultValue/ns:DataSetReference", nsManager);
+                    FromQueryDefaultValue = new QueryReference()
+                    {
+                        DataSetName = dataSetReferenceNode.SelectSingleNode("ns:DataSetName", nsManager).InnerText,
+                        ValueField = dataSetReferenceNode.SelectSingleNode("ns:ValueField", nsManager).InnerText
+                    };
+                }
+                else
+                {
+                    DefaultValueType = ValueProvidingType.Literals;
+
+                    var valueNodes = ValuesNode.SelectNodes("ns:Value", nsManager);
+                    DefaultValues = Enumerable.Range(0, valueNodes.Count).Select(i => valueNodes[i].InnerText).ToList();
+                }
+
+            }  
 
             IsMultiValue = xmlElement.SelectSingleNode("ns:MultiValue", nsManager) != null;
 

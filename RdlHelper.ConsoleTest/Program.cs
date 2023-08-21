@@ -5,19 +5,29 @@ using System.Xml;
 Console.WriteLine("Hello, World!");
 
 var rdlFilePath = @"C:\Users\Vahid\Desktop\SampleReport.rdl";
+var rdlFilePath2 = @"D:\All_TFS\Reports\Reports\Reports\Sample.rdl";
 
 
+// CreateReportParameter();
 
-var doc = new XmlDocument();
-doc.Load(rdlFilePath);
-
-var nsManager = new XmlNamespaceManager(doc.NameTable);
-nsManager.AddNamespace("ns", Report.Namespace);
-
-
-var nodes = doc.SelectNodes("//ns:ReportParameter", nsManager);
-
-var @params = Enumerable.Range(0, nodes.Count).Select(i => new ReportParameter((XmlElement)nodes[i])).ToList();
-
+ CreateReportParameterFromExistingXmlElement(rdlFilePath2);
 
 Console.ReadLine();
+
+static void CreateReportParameter()
+{
+    var rp = new ReportParameter("Vahid", "Vahidooo", RdlParameterDataType.DateTime);
+    var el = rp.ToXml();
+}
+
+static void CreateReportParameterFromExistingXmlElement(string rdlFilePath2)
+{
+    var doc = new XmlDocument();
+    doc.Load(rdlFilePath2);
+
+    var el = (XmlElement)doc.GetElementsByTagName("ReportParameter")[0];
+
+    var rp = new ReportParameter(el);
+
+    var xmlt = rp.ToXml();
+}
