@@ -5,7 +5,7 @@ using System.Xml;
 
 namespace RdlHelper.ViewModels.RdlCommands
 {
-    internal class HideParametersCommandVm : RdlCommand
+    internal class HideParametersCommandVm : RdlCommandVm
     {
         public HideParametersCommandVm(MainVm mainVm) : base(mainVm)
         {

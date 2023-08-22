@@ -10,7 +10,6 @@ namespace RdlHelper.Models
     public static class Extensions
     {
         
-
         public static XmlElement ToXml(this ReportParameter parameter)
         {
             var elMaker = new ElementMaker(parameter.Namespace);

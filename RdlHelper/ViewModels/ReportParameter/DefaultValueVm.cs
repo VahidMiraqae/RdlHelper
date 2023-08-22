@@ -1,6 +1,6 @@
 ﻿using RdlHelper.ViewModels;
 
-namespace RdlHelper.Views
+namespace RdlHelper.ViewModels.ReportParameter
 {
     internal class DefaultValueVm : BaseVm
     {

@@ -4,12 +4,12 @@ using System.Collections.Generic;
 namespace RdlHelper.ViewModels.RdlCommands
 {
     [Obsolete]
-    internal abstract class RdlCommand : BaseVm
+    internal abstract class RdlCommandVm : BaseVm
     {
         protected MainVm _mianVm;
         private bool _showInstructions;
 
-        public RdlCommand(MainVm mainVm)
+        public RdlCommandVm(MainVm mainVm)
         {
             _mianVm = mainVm;
         }

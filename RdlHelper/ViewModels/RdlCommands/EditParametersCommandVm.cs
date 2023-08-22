@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace RdlHelper.ViewModels.RdlCommands
 { 
-    internal class EditParametersCommandVm : RdlCommand
+    internal class EditParametersCommandVm : RdlCommandVm
     {
         public EditParametersCommandVm(MainVm mainVm) : base(mainVm)
         {

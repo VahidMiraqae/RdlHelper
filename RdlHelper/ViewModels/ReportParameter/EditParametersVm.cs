@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace RdlHelper.Views
+namespace RdlHelper.ViewModels.ReportParameter
 {
     internal class EditParametersVm : BaseVm
     {
@@ -13,11 +13,11 @@ namespace RdlHelper.Views
         {
             _originalParams = parameters.Select(p => new ReportParameterVm(p)).ToDictionary(aa => aa.Name, aa => aa);
 
-            Parameters = new ObservableCollection<ReportParameterVm>(_originalParams.Values);
+            Parameters = new ObservableCollection<ParameterVm>(_originalParams.Values);
         }
-        public ObservableCollection<ReportParameterVm> Parameters { get; set; }
+        public ObservableCollection<ParameterVm> Parameters { get; set; }
 
-        private Dictionary<string, ReportParameterVm> _originalParams;
+        private Dictionary<string, ParameterVm> _originalParams;
 
         internal void ApplyChanges()
         {

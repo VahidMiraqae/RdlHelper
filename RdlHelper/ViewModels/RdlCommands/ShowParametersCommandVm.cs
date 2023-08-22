@@ -9,7 +9,7 @@ using static RdlHelper.Models.Report;
 namespace RdlHelper.ViewModels.RdlCommands
 {
     //[Obsolete]
-    internal class ShowParametersCommandVm : RdlCommand
+    internal class ShowParametersCommandVm : RdlCommandVm
     {
         public ShowParametersCommandVm(MainVm mainVm) : base(mainVm)
         {

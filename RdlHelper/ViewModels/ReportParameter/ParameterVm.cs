@@ -5,16 +5,16 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace RdlHelper.Views
+namespace RdlHelper.ViewModels.ReportParameter
 {
-    internal class ReportParameterVm : BaseVm
+    internal class ParameterVm : BaseVm
     {
         private bool _isMultiValue;
         private string _type;
         private string _name;
         private bool _canAddDefaultValue;
 
-        public ReportParameterVm(ReportParameter rdlParameter)
+        public ParameterVm(ReportParameter rdlParameter)
         {
             Parameter = rdlParameter;
             Name = Parameter.GetParameterName();
@@ -30,10 +30,10 @@ namespace RdlHelper.Views
         public bool IsMultiValue { get => _isMultiValue; set { _isMultiValue = value; OnPropChanged(); } }
         public bool CanAddDefaultValue { get => _canAddDefaultValue; set { _canAddDefaultValue = value; OnPropChanged(); } }
 
-        public ObservableCollection<DefaultValueVm> DefaultValues { get; set; } 
+        public ObservableCollection<DefaultValueVm> DefaultValues { get; set; }
 
         public bool DefaultValuesChanged => DefaultValues.Any(aa => aa.Chagned);
-         
+
 
         internal void ApplyChanges()
         {

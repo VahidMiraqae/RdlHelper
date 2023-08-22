@@ -34,7 +34,7 @@ namespace RdlHelper
             }
 
             var control = (FrameworkElement)e.OriginalSource;
-            if (control.DataContext is RdlCommand rdlCommand)
+            if (control.DataContext is RdlCommandVm rdlCommand)
             {
                 var result = rdlCommand.Perform(filteredFilePaths);
                 _mainVm.Message = result;

@@ -10,32 +10,24 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using RdlHelper.ViewModels.ReportParameter;
 
 namespace RdlHelper.Views
 {
     /// <summary>
     /// Interaction logic for ParametersBatchCommandsWindow.xaml
     /// </summary>
-    public partial class BatchEditParametersWindow : Window
+    public partial class EditParametersWindow : Window
     {
         private EditParametersVm _pbcwVm;
 
-        internal BatchEditParametersWindow(EditParametersVm vm)
+        internal EditParametersWindow(EditParametersVm vm)
         {
             _pbcwVm = vm;
             DataContext = vm;
             InitializeComponent();
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is Button btn)
-            {
-                var dc = (ReportParameterVm)btn.DataContext;
-                dc.DefaultValues.Add(new DefaultValueVm(""));
-            }
-        }
-
+         
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             if (sender is Button btn)
@@ -48,6 +40,15 @@ namespace RdlHelper.Views
         {
             DialogResult = true;
             _pbcwVm.ApplyChanges();
+        }
+
+        private void AddDefaultValue_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button btn)
+            {
+                var dc = (ParameterVm)btn.DataContext;
+                dc.DefaultValues.Add(new DefaultValueVm(""));
+            }
         }
     }
 }

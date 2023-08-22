@@ -8,7 +8,7 @@ namespace RdlHelper.ViewModels
 {
     internal class MainVm : BaseVm
     {
-        private RdlCommand _command;
+        private RdlCommandVm _command;
         private string _message;
 
         public MainVm()
@@ -21,16 +21,16 @@ namespace RdlHelper.ViewModels
             // this is the reflection approach
 
             var thisAssembly = Assembly.GetAssembly(GetType());
-            var types = thisAssembly.GetTypes().Where(aa => aa.IsSubclassOf(typeof(RdlCommand)))
+            var types = thisAssembly.GetTypes().Where(aa => aa.IsSubclassOf(typeof(RdlCommandVm)))
                 .Where(aa => aa.GetCustomAttribute<ObsoleteAttribute>() == null)
-                .Select(aa => (RdlCommand)Activator.CreateInstance(aa, this));
+                .Select(aa => (RdlCommandVm)Activator.CreateInstance(aa, this));
 
-            RdlCommands = new List<RdlCommand>(types);
+            RdlCommands = new List<RdlCommandVm>(types);
         }
 
-        public List<RdlCommand> RdlCommands { get; set; }
+        public List<RdlCommandVm> RdlCommands { get; set; }
 
-        public RdlCommand LastUsedRdlCommand { get => _command; set { _command = value; OnPropChanged(); } }
+        public RdlCommandVm LastUsedRdlCommand { get => _command; set { _command = value; OnPropChanged(); } }
 
         public string Message { get => _message; set { _message = value; OnPropChanged(); } }
     }
