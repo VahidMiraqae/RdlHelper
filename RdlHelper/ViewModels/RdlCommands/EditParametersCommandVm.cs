@@ -1,6 +1,7 @@
 ﻿using RdlHelper.Models;
 using RdlHelper.ViewModels.ReportParameterViewModels;
 using RdlHelper.Views;
+using RdlHelper.Views.EditParameter;
 using System;
 using System.Collections.Generic;
 using System.Linq;

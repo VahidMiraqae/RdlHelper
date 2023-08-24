@@ -48,7 +48,8 @@ namespace RdlHelper.Models
 
         private IEnumerable<ReportParameter> ReadParameters(XmlDocument xmlDocument)
         {
-            var rps = _es.GetReportParameterElements().Select(xl => new ReportParameter(xl)).ToList();
+            var els = _es.GetReportParameterElements();
+            var rps = Enumerable.Range(0, els.Length).Select(i => new ReportParameter(i+1, els[i])).ToList();
             return rps;
         }
 

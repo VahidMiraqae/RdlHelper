@@ -19,6 +19,8 @@ namespace RdlHelper.Models
 
         public bool Hidden {get; set;}
 
+        public int Order { get; set;}
+
         public bool Nullable { get; set; }
         public bool IsMultiValue { get => _isMultiValue; set { _isMultiValue = DecideIfIsMultiValueCanBeSetTo(value); } }
 
@@ -31,9 +33,11 @@ namespace RdlHelper.Models
         public QueryReference FromQueryDefaultValue { get; internal set; }
         public QueryReference FromQueryValidParameterValue { get; internal set; }
 
-        public ReportParameter(XmlElement xmlElement)
+        public ReportParameter(int order, XmlElement xmlElement)
         {
             Namespace = xmlElement.NamespaceURI;
+
+            Order = order;
 
             var nsManager = new XmlNamespaceManager(new NameTable());
             nsManager.AddNamespace("ns", xmlElement.NamespaceURI); 

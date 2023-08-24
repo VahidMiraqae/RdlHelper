@@ -13,6 +13,8 @@ namespace RdlHelper.ViewModels.ReportParameterViewModels
         private ParameterDataType _type;
         private string _name;
         private bool _canAddDefaultValue;
+        private int _order;
+        private ValueProvidingType _dvt;
 
         public ParameterVm(ReportParameter rdlParameter)
         {
@@ -20,10 +22,15 @@ namespace RdlHelper.ViewModels.ReportParameterViewModels
             Name = rdlParameter.Name;
             Type = rdlParameter.DataType;
             DefaultValues = new ObservableCollection<DefaultValueVm>(Parameter.DefaultValues.Select(aa => new DefaultValueVm(aa)));
-
+            Order = rdlParameter.Order;
+            DefaultValueType = rdlParameter.DefaultValueType;
         }
 
         public ReportParameter Parameter { get; set; }
+
+        public int Order { get => _order; set { _order = value; OnPropChanged(); } }
+
+        public ValueProvidingType DefaultValueType { get => _dvt; set { _dvt = value; OnPropChanged(); } }
 
         public string Name { get => _name; set { _name = value; OnPropChanged(); } }
         public ParameterDataType Type { get => _type; set { _type = value; OnPropChanged(); } }

@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using RdlHelper.ViewModels.ReportParameterViewModels;
 
-namespace RdlHelper.Views
+namespace RdlHelper.Views.EditParameter
 {
     /// <summary>
     /// Interaction logic for ParametersBatchCommandsWindow.xaml
@@ -29,7 +29,7 @@ namespace RdlHelper.Views
             Height = .9 * SystemParameters.PrimaryScreenHeight;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
-         
+
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             if (sender is Button btn)
@@ -50,6 +50,14 @@ namespace RdlHelper.Views
             {
                 var dc = (ParameterVm)btn.DataContext;
                 dc.DefaultValues.Add(new DefaultValueVm(""));
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button btn && btn.DataContext is ParameterVm pvm)
+            {
+                pvm.DefaultValueType = Models.ValueProvidingType.Literals;
             }
         }
     }
