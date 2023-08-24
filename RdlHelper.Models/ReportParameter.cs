@@ -92,11 +92,10 @@ namespace RdlHelper.Models
             Prompt = prompt;
             DataType = dataType;
         }
-
          
         private bool DecideIfAllowedBlankCanBeSetTo(bool value)
         {
-            if (value == true && DataType == ParameterDataType.String)
+            if (value == true && IsEmptyStringAvailable(DataType))
             {
                 return true;
             }
@@ -119,6 +118,9 @@ namespace RdlHelper.Models
             return false;
         }
 
-
+        public bool IsEmptyStringAvailable(ParameterDataType type)
+        {
+            return type == ParameterDataType.String;
+        }
     }
 }

@@ -181,6 +181,7 @@
         </StackPanel>
         <DataGrid ItemsSource="{Binding Parameters}"
                   HeadersVisibility="Column" 
+                  CanUserSortColumns="False"
                   SelectedValue="{Binding SelectedParameter}"
                   SelectionMode="Extended"
                   Name="mainDg">
@@ -197,10 +198,33 @@
                 <DataGridTextColumn Width="auto"
                                     Header="Name}"
                                     Binding="{Binding Name}"/>
+ 
+                <DataGridTemplateColumn Width="auto"
+                                        Header="Nullable?" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding Nullable}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                
+                <DataGridTemplateColumn Width="auto"
+                                        Header="Multi Value?">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding IsMultiValue}" HorizontalAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
-                <DataGridCheckBoxColumn Width="auto"
-                                        Header="Nullable?"
-                                        Binding="{Binding Nullable}"/>
+                <DataGridTemplateColumn Width="auto"
+                                        Header="Empty String?" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsEnabled="{Binding IsAllowBlankAvailable}" IsChecked="{Binding AllowBlank}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
                 <DataGridTemplateColumn Width="*" CellTemplate="{StaticResource xx}" >
                 </DataGridTemplateColumn>

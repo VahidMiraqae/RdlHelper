@@ -63,16 +63,16 @@ namespace RdlHelper.Views.EditParameter
         }
 
         private void _orderUp_Click(object sender, RoutedEventArgs e)
-        {
-
+        { 
             var allSelectedItems = mainDg.SelectedItems.Cast<ParameterVm>().ToList();
-            var latestOrderOccupied = 1;
+            var latestOrderOccupied = 0;
             foreach (var item in allSelectedItems)
             {
                 var ind1 = _pbcwVm.Parameters.IndexOf(item);
 
                 if (ind1 == latestOrderOccupied)
                 {
+                    latestOrderOccupied++;
                     continue;
                 }
 
