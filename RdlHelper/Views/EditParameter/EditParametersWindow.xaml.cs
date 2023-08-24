@@ -81,7 +81,7 @@ namespace RdlHelper.Views.EditParameter
                 _pbcwVm.Parameters.Insert(ind1 - 1,item);
                 item.Order--;
                 replacedItem.Order++;
-
+                mainDg.SelectedItems.Add(item);
             }
 
             //var sp = _pbcwVm.SelectedParameter;
