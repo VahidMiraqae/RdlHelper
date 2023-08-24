@@ -37,6 +37,7 @@ namespace RdlHelper.ViewModels.ReportParameterViewModels
         public bool IsMultiValue { get => _isMultiValue; set { _isMultiValue = value; OnPropChanged(); } }
         public bool CanAddDefaultValue { get => _canAddDefaultValue; set { _canAddDefaultValue = value; OnPropChanged(); } }
 
+
         public ObservableCollection<DefaultValueVm> DefaultValues { get; set; }
 
         public bool DefaultValuesChanged => DefaultValues.Any(aa => aa.Chagned);

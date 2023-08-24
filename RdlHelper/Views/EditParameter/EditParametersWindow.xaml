@@ -10,8 +10,7 @@
         Height="450"
         Width="701">
     <Window.Resources>
-
-        <editparameter:DefaultValueTemplateSelector x:Key="xxx" />
+ 
 
         <Style TargetType="DataGridCell">
             <Setter Property="Template">
@@ -61,86 +60,129 @@
                     Value="Center" />
         </Style>
 
-        
-        
-        
-        <DataTemplate x:Key="NoDefaultValueTemplate">
-            <Grid Margin="3">
-                <Button Content="Add default values" HorizontalAlignment="Center" Padding="10 0" Click="Button_Click"/>
-            </Grid>
-        </DataTemplate>
-        
 
-        <DataTemplate x:Key="LiternalsTemplate">
-            <DockPanel>
-                <Button x:Name="AddDefaultValue"
+
+
+        <DataTemplate x:Key="NoDefaultValueTemplate">
+            
+        </DataTemplate>
+
+
+        <DataTemplate x:Key="xx">
+            <Grid>
+                <Grid Margin="3">
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding DefaultValueType}"
+                                             Value="None">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+                    <Button Content="Add default values" HorizontalAlignment="Center" Padding="10 0" Click="Button_Click"/>
+                </Grid>
+                <DockPanel>
+                    <DockPanel.Style>
+                        <Style TargetType="DockPanel">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding DefaultValueType}"
+                                             Value="Literals">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DockPanel.Style>
+                    <Button x:Name="AddDefaultValue"
                         Content=""  
                         Margin="0" 
                         Click="AddDefaultValue_Click"
                         Style="{StaticResource btnVisbility}"
                         DockPanel.Dock="Left">
-                </Button>
-                <ItemsControl ItemsSource="{Binding DefaultValues}"
+                    </Button>
+                    <ItemsControl ItemsSource="{Binding DefaultValues}"
                               VerticalAlignment="Center"
                               Margin="3">
-                    <ItemsControl.Resources>
-                        <Style TargetType="ItemsControl">
-                            
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding DefaultValueType}"
+                        <ItemsControl.Resources>
+                            <Style TargetType="ItemsControl">
+
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding DefaultValueType}"
                                              Value="None">
-                                    <Setter Property="ItemTemplate">
-                                        <Setter.Value>
-                                            <DataTemplate>
-                                                <TextBlock Text="Set a default value"/>
-                                            </DataTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ItemsControl.Resources>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Margin="0 0 0 0">
-                                <DockPanel>
-                                    <Button Content=""
+                                        <Setter Property="ItemTemplate">
+                                            <Setter.Value>
+                                                <DataTemplate>
+                                                    <TextBlock Text="Set a default value"/>
+                                                </DataTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ItemsControl.Resources>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="0 0 0 0">
+                                    <DockPanel>
+                                        <Button Content=""
                                             FontFamily="segoe mdl2 assets"
                                             Width="22"
                                             Click="Button_Click_1"
                                             Margin="-1 0 0 0"
                                             DockPanel.Dock="Right"></Button>
-                                    <Button Content=""
+                                        <Button Content=""
                                             FontFamily="segoe mdl2 assets"
                                             Width="22"
                                             Margin="0 0 -1 0"
                                             Tag="moveUp"
                                             Style="{StaticResource btnVisbility}"
                                             DockPanel.Dock="Left" />
-                                    <Button Content=""
+                                        <Button Content=""
                                             FontFamily="segoe mdl2 assets"
                                             Width="22"
                                             Margin="0 0 -1 0"
                                             Style="{StaticResource btnVisbility}"
                                             DockPanel.Dock="Left" />
-                                    <TextBox Text="{Binding DefaultValue}" />
-                                </DockPanel>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </DockPanel>
+                                        <TextBox Text="{Binding DefaultValue}" />
+                                    </DockPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </DockPanel>
+            </Grid>
         </DataTemplate>
 
 
     </Window.Resources>
-        
+
     <DockPanel Margin="5">
         <StackPanel DockPanel.Dock="Bottom">
             <Button Click="Button_Click_2" Content="Apply"/>
         </StackPanel>
+
+        <StackPanel DockPanel.Dock="Top" Margin="3" Orientation="Horizontal">
+            <Button x:Name="_orderUp"
+                    Width="20"
+                    Height="20"
+                    HorizontalAlignment="Left"
+                    Content="up"
+                    Click="_orderUp_Click"
+                    Margin="0 0 10 0"/>
+            <Button x:Name="_orderDown"
+                    Width="20"
+                    Height="20"
+                    HorizontalAlignment="Left"
+                    Content="down"
+                    Click="_orderDown_Click"/>
+        </StackPanel>
         <DataGrid ItemsSource="{Binding Parameters}"
-                  HeadersVisibility="Column"
+                  HeadersVisibility="Column" 
+                  SelectedValue="{Binding SelectedParameter}"
+                  SelectionMode="Extended"
                   Name="mainDg">
             <DataGrid.Columns>
 
@@ -160,7 +202,7 @@
                                         Header="Nullable?"
                                         Binding="{Binding Nullable}"/>
 
-                <DataGridTemplateColumn Width="*" CellTemplateSelector="{StaticResource xxx}" > 
+                <DataGridTemplateColumn Width="*" CellTemplate="{StaticResource xx}" >
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>

@@ -57,8 +57,69 @@ namespace RdlHelper.Views.EditParameter
         {
             if (sender is Button btn && btn.DataContext is ParameterVm pvm)
             {
+                pvm.DefaultValues.Add(new DefaultValueVm(null));
                 pvm.DefaultValueType = Models.ValueProvidingType.Literals;
             }
+        }
+
+        private void _orderUp_Click(object sender, RoutedEventArgs e)
+        {
+
+            var allSelectedItems = mainDg.SelectedItems.Cast<ParameterVm>().ToList();
+            var latestOrderOccupied = 1;
+            foreach (var item in allSelectedItems)
+            {
+                var ind1 = _pbcwVm.Parameters.IndexOf(item);
+
+                if (ind1 == latestOrderOccupied)
+                {
+                    continue;
+                }
+
+                _pbcwVm.Parameters.RemoveAt(ind1);
+                var replacedItem = _pbcwVm.Parameters[ind1 - 1];
+                _pbcwVm.Parameters.Insert(ind1 - 1,item);
+                item.Order--;
+                replacedItem.Order++;
+
+            }
+
+            //var sp = _pbcwVm.SelectedParameter;
+            //var ind = _pbcwVm.Parameters.IndexOf(sp);
+
+            //if (ind == 0)
+            //{
+            //    return;
+            //}
+
+            //var spAbove = _pbcwVm.Parameters[ind - 1];
+            //spAbove.Order++;
+
+            //sp.Order--;
+
+            //_pbcwVm.Parameters.RemoveAt(ind);
+            //_pbcwVm.Parameters.Insert(ind - 1, sp);
+            //_pbcwVm.SelectedParameter = sp;
+        }
+
+        private void _orderDown_Click(object sender, RoutedEventArgs e)
+        {
+            var sp = _pbcwVm.SelectedParameter;
+            var ind = _pbcwVm.Parameters.IndexOf(sp); 
+
+            if (ind == _pbcwVm.Parameters.Count - 1)
+            {
+                return;
+            }
+
+            var spUnder = _pbcwVm.Parameters[ind  + 1];
+            spUnder.Order--;
+
+            sp.Order++;
+
+            _pbcwVm.Parameters.RemoveAt(ind);
+            _pbcwVm.Parameters.Insert(ind + 1, sp);
+            _pbcwVm.SelectedParameter = sp;
         }
     }
 }
