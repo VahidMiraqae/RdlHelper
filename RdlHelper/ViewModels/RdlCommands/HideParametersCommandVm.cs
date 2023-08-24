@@ -20,7 +20,7 @@ namespace RdlHelper.ViewModels.RdlCommands
             foreach (var filePath in filePaths)
             {
                 var doc = new Report(filePath);
-                var @params = doc.GetParameters();
+                var @params = doc.Parameters;
 
                 foreach (var param in @params)
                 {

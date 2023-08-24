@@ -1,4 +1,5 @@
 ﻿using RdlHelper.Models;
+using RdlHelper.ViewModels.ReportParameterViewModels;
 using RdlHelper.Views;
 using System;
 using System.Collections.Generic;
@@ -34,21 +35,19 @@ namespace RdlHelper.ViewModels.RdlCommands
 
 
             var doc = new Report(filePath);
-
-            var parameters = doc.GetParameters();
-
+              
             
-            var vm = new Views.EditParametersVm(parameters);
-            var window = new BatchEditParametersWindow(vm);
+            var vm = new EditParametersVm(doc.Parameters);
+            var window = new EditParametersWindow(vm);
 
             var windowResult = window.ShowDialog();
 
-            if (windowResult == true)
-            {
-                doc.ResetParameters(vm.GetParameters());
-            }
+            //if (windowResult == true)
+            //{
+            //    doc.ResetParameters(vm.GetParameters());
+            //}
 
-            doc.Overwrite();
+            //doc.Overwrite();
 
             return "Done";
         }

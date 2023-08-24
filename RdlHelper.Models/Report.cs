@@ -16,6 +16,7 @@ namespace RdlHelper.Models
         public const string Namespace = "http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition";
 
         private XmlDocument _xmlDocument;
+        private RdlXmlElementSelector _es;
 
         public string LoadedFromFilePath { get; set; }
         public IEnumerable<ReportParameter> Parameters { get; set; } 
@@ -29,16 +30,27 @@ namespace RdlHelper.Models
             LoadedFromFilePath = rdlFilePath;
 
             _xmlDocument = new XmlDocument();
-            _xmlDocument.Load(LoadedFromFilePath);  
+            _xmlDocument.Load(LoadedFromFilePath);
+
+            _es = new RdlXmlElementSelector(_xmlDocument);
 
             if (!IsValidRdlDocument())
             {
                 throw new Exception("bad rld file.");
             }
 
-            ReportParametersElement = (XmlElement)_xmlDocument.GetElementsByTagName("ReportParameters")[0];
+
+
+            Parameters = ReadParameters(_xmlDocument);
+
+            // ReportParametersElement = (XmlElement)_xmlDocument.GetElementsByTagName("ReportParameters")[0];
         }
-          
+
+        private IEnumerable<ReportParameter> ReadParameters(XmlDocument xmlDocument)
+        {
+            var rps = _es.GetReportParameterElements().Select(xl => new ReportParameter(xl)).ToList();
+            return rps;
+        }
 
         private bool IsValidRdlDocument()
         {

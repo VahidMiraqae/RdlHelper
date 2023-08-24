@@ -54,52 +54,10 @@
             <Setter Property="VerticalContentAlignment"
                     Value="Center" />
             <Setter Property="VerticalAlignment"
-                    Value="Center" /> 
+                    Value="Center" />
         </Style>
 
-        <DataTemplate x:Key="DefaultParam">
-            <DockPanel>
-                <Button x:Name="AddDefaultValue"
-                        Content=""  
-                        Margin="0" 
-                        Click="AddDefaultValue_Click"
-                        Style="{StaticResource btnVisbility}"
-                        DockPanel.Dock="Left">
-                </Button>
-                <ItemsControl ItemsSource="{Binding DefaultValues}"
-                              VerticalAlignment="Center"
-                              Margin="3">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Margin="0 0 0 2">
-                                <DockPanel>
-                                    <Button Content=""
-                                            FontFamily="segoe mdl2 assets"
-                                            Width="22"
-                                            Click="Button_Click_1"
-                                            Margin="-1 0 0 0"
-                                            DockPanel.Dock="Right"></Button>
-                                    <Button Content=""
-                                            FontFamily="segoe mdl2 assets"
-                                            Width="22"
-                                            Margin="0 0 -1 0"
-                                            Tag="moveUp"
-                                            Style="{StaticResource btnVisbility}"
-                                            DockPanel.Dock="Left" />
-                                    <Button Content=""
-                                            FontFamily="segoe mdl2 assets"
-                                            Width="22"
-                                            Margin="0 0 -1 0"
-                                            Style="{StaticResource btnVisbility}"
-                                            DockPanel.Dock="Left" />
-                                    <TextBox Text="{Binding DefaultValue}" />
-                                </DockPanel>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </DockPanel>
-        </DataTemplate>
+
 
     </Window.Resources>
     <DockPanel Margin="5">
@@ -113,13 +71,57 @@
                 <DataGridTextColumn Width="auto"
                                     Binding="{Binding Type}">
                 </DataGridTextColumn>
-                
+
                 <DataGridTextColumn Width="auto"
-                                    Binding="{Binding Name}"> 
+                                    Binding="{Binding Name}">
                 </DataGridTextColumn>
-                
-                <DataGridTemplateColumn Width="*" CellTemplate="{StaticResource DefaultParam}" >
-                    
+
+                <DataGridTemplateColumn Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate  >
+                            <DockPanel>
+                                <Button x:Name="AddDefaultValue"
+                        Content=""  
+                        Margin="0" 
+                        Click="AddDefaultValue_Click"
+                        Style="{StaticResource btnVisbility}"
+                        DockPanel.Dock="Left">
+                                </Button>
+                                <ItemsControl ItemsSource="{Binding DefaultValues}"
+                              VerticalAlignment="Center"
+                              Margin="3">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Margin="0 0 0 0">
+                                                <DockPanel>
+                                                    <Button Content=""
+                                            FontFamily="segoe mdl2 assets"
+                                            Width="22"
+                                            Click="Button_Click_1"
+                                            Margin="-1 0 0 0"
+                                            DockPanel.Dock="Right"></Button>
+                                                    <Button Content=""
+                                            FontFamily="segoe mdl2 assets"
+                                            Width="22"
+                                            Margin="0 0 -1 0"
+                                            Tag="moveUp"
+                                            Style="{StaticResource btnVisbility}"
+                                            DockPanel.Dock="Left" />
+                                                    <Button Content=""
+                                            FontFamily="segoe mdl2 assets"
+                                            Width="22"
+                                            Margin="0 0 -1 0"
+                                            Style="{StaticResource btnVisbility}"
+                                            DockPanel.Dock="Left" />
+                                                    <TextBox Text="{Binding DefaultValue}" />
+                                                </DockPanel>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </DockPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RdlHelper.Models
 {
-    public enum RdlParameterDataType
+    public enum ParameterDataType
     {
         String,
         Boolean,

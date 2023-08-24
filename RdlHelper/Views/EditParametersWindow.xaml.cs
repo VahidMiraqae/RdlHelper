@@ -10,7 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using RdlHelper.ViewModels.ReportParameter;
+using RdlHelper.ViewModels.ReportParameterViewModels;
 
 namespace RdlHelper.Views
 {
@@ -26,6 +26,8 @@ namespace RdlHelper.Views
             _pbcwVm = vm;
             DataContext = vm;
             InitializeComponent();
+            Height = .9 * SystemParameters.PrimaryScreenHeight;
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
          
         private void Button_Click_1(object sender, RoutedEventArgs e)

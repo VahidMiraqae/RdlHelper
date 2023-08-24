@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RdlHelper.Models", "RdlHelp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RdlHelper.ConsoleTest", "RdlHelper.ConsoleTest\RdlHelper.ConsoleTest.csproj", "{C79F0939-54AA-403B-BA47-72FA745CA2A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRegularTests", "IRegularTests\IRegularTests.csproj", "{A5436E8B-05B9-471F-A0B1-3B77C301F5C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IRegularTests", "IRegularTests\IRegularTests.csproj", "{A5436E8B-05B9-471F-A0B1-3B77C301F5C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RdlHelper.UnitTest", "RdlHelper.UnitTest\RdlHelper.UnitTest.csproj", "{EEEDBFBC-0CC7-4FC6-901A-20E465F77458}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{A5436E8B-05B9-471F-A0B1-3B77C301F5C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5436E8B-05B9-471F-A0B1-3B77C301F5C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A5436E8B-05B9-471F-A0B1-3B77C301F5C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEEDBFBC-0CC7-4FC6-901A-20E465F77458}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEEDBFBC-0CC7-4FC6-901A-20E465F77458}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEEDBFBC-0CC7-4FC6-901A-20E465F77458}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEEDBFBC-0CC7-4FC6-901A-20E465F77458}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

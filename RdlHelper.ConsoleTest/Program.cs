@@ -16,7 +16,7 @@ Console.ReadLine();
 
 static void CreateReportParameter()
 {
-    var rp = new ReportParameter("Vahid", "Vahidooo", RdlParameterDataType.DateTime);
+    var rp = new ReportParameter("Vahid", "Vahidooo", ParameterDataType.DateTime);
     var el = rp.ToXml();
 }
 

@@ -5,28 +5,28 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace RdlHelper.ViewModels.ReportParameter
+namespace RdlHelper.ViewModels.ReportParameterViewModels
 {
     internal class ParameterVm : BaseVm
     {
         private bool _isMultiValue;
-        private string _type;
+        private ParameterDataType _type;
         private string _name;
         private bool _canAddDefaultValue;
 
         public ParameterVm(ReportParameter rdlParameter)
         {
             Parameter = rdlParameter;
-            Name = Parameter.GetParameterName();
-            Type = Parameter.GetParameterType(); ;
-            DefaultValues = new ObservableCollection<DefaultValueVm>(Parameter.GetDefaultValues().Select(aa => new DefaultValueVm(aa)));
+            Name = rdlParameter.Name;
+            Type = rdlParameter.DataType;
+            DefaultValues = new ObservableCollection<DefaultValueVm>(Parameter.DefaultValues.Select(aa => new DefaultValueVm(aa)));
 
         }
 
         public ReportParameter Parameter { get; set; }
 
         public string Name { get => _name; set { _name = value; OnPropChanged(); } }
-        public string Type { get => _type; set { _type = value; OnPropChanged(); } }
+        public ParameterDataType Type { get => _type; set { _type = value; OnPropChanged(); } }
         public bool IsMultiValue { get => _isMultiValue; set { _isMultiValue = value; OnPropChanged(); } }
         public bool CanAddDefaultValue { get => _canAddDefaultValue; set { _canAddDefaultValue = value; OnPropChanged(); } }
 
@@ -39,7 +39,7 @@ namespace RdlHelper.ViewModels.ReportParameter
         {
             if (DefaultValuesChanged)
             {
-                Parameter.SetDefaultValues(DefaultValues.Select(dv => dv.DefaultValue));
+                //Parameter.SetDefaultValues(DefaultValues.Select(dv => dv.DefaultValue));
             }
         }
     }

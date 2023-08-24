@@ -11,7 +11,7 @@ namespace RdlHelper.Models
         private bool _isMultiValue;
 
         public string Namespace { get; private set; }
-        public RdlParameterDataType DataType { get; }
+        public ParameterDataType DataType { get; }
         public string Prompt { get; }
         public string Name { get; }
         
@@ -22,7 +22,7 @@ namespace RdlHelper.Models
         public bool Nullable { get; set; }
         public bool IsMultiValue { get => _isMultiValue; set { _isMultiValue = DecideIfIsMultiValueCanBeSetTo(value); } }
 
-        public List<string> DefaultValues { get; private set; }
+        public List<string> DefaultValues { get; private set; } = new List<string>();
         public Dictionary<string,string> ParameterValues { get; set; }
 
         public ValueProvidingType DefaultValueType { get; set; }
@@ -38,7 +38,7 @@ namespace RdlHelper.Models
             var nsManager = new XmlNamespaceManager(new NameTable());
             nsManager.AddNamespace("ns", xmlElement.NamespaceURI); 
 
-            DataType = Enum.Parse<RdlParameterDataType>(xmlElement.SelectSingleNode("ns:DataType", nsManager).InnerText);
+            DataType = Enum.Parse<ParameterDataType>(xmlElement.SelectSingleNode("ns:DataType", nsManager).InnerText);
             Prompt = xmlElement.SelectSingleNode("ns:Prompt", nsManager).InnerText;
             Name = xmlElement.GetAttribute("Name");
 
@@ -47,7 +47,7 @@ namespace RdlHelper.Models
             Nullable = xmlElement.SelectSingleNode("ns:Nullable", nsManager) != null;
             AllowBlank = xmlElement.SelectSingleNode("ns:AllowBlank", nsManager) != null;
 
-            var defaultValueNode = xmlElement.SelectNodes("ns:DefaultValue", nsManager);
+            var defaultValueNode = xmlElement.SelectSingleNode("ns:DefaultValue", nsManager);
 
             if (defaultValueNode == null)
             {
@@ -82,7 +82,7 @@ namespace RdlHelper.Models
 
         }
 
-        public ReportParameter(string name, string prompt, RdlParameterDataType dataType)
+        public ReportParameter(string name, string prompt, ParameterDataType dataType)
         {
             Name = name;
             Prompt = prompt;
@@ -92,7 +92,7 @@ namespace RdlHelper.Models
          
         private bool DecideIfAllowedBlankCanBeSetTo(bool value)
         {
-            if (value == true && DataType == RdlParameterDataType.String)
+            if (value == true && DataType == ParameterDataType.String)
             {
                 return true;
             }
