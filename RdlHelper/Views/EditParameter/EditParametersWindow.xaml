@@ -10,25 +10,30 @@
         Height="450"
         Width="701">
     <Window.Resources>
- 
+
 
         <Style TargetType="DataGridCell">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="DataGridCell">
-                        <Grid Background="{TemplateBinding Background}"  >
-                            <ContentPresenter VerticalAlignment="Center" Margin="5 0" />
+                        <Grid Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                              Margin="5 0" />
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
 
-        <Style TargetType="Button" x:Key="btnVisbility">
-            <Setter Property="Visibility" Value="Collapsed"/>
+        <Style TargetType="Button"
+               x:Key="btnVisbility">
+            <Setter Property="Visibility"
+                    Value="Collapsed" />
             <Style.Triggers>
-                <DataTrigger Binding="{Binding IsMultiValue}" Value="True">
-                    <Setter Property="Visibility" Value="Visible"/>
+                <DataTrigger Binding="{Binding IsMultiValue}"
+                             Value="True">
+                    <Setter Property="Visibility"
+                            Value="Visible" />
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -59,55 +64,62 @@
             <Setter Property="VerticalAlignment"
                     Value="Center" />
         </Style>
-  
+
         <DataTemplate x:Key="xx">
             <Grid>
                 <Grid Margin="3">
                     <Grid.Style>
                         <Style TargetType="Grid">
-                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Setter Property="Visibility"
+                                    Value="Collapsed" />
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding DefaultValueType}"
                                              Value="None">
-                                    <Setter Property="Visibility" Value="Visible"/>
+                                    <Setter Property="Visibility"
+                                            Value="Visible" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </Grid.Style>
-                    <Button Content="Add default values" HorizontalAlignment="Center" Padding="10 0" Click="Button_Click"/>
+                    <Button Content="Add default values"
+                            HorizontalAlignment="Center"
+                            Padding="10 0"
+                            Click="Button_Click" />
                 </Grid>
                 <DockPanel>
                     <DockPanel.Style>
                         <Style TargetType="DockPanel">
-                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Setter Property="Visibility"
+                                    Value="Collapsed" />
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding DefaultValueType}"
                                              Value="Literals">
-                                    <Setter Property="Visibility" Value="Visible"/>
+                                    <Setter Property="Visibility"
+                                            Value="Visible" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </DockPanel.Style>
                     <Button x:Name="AddDefaultValue"
-                        Content=""  
-                        Margin="0" 
-                        Click="AddDefaultValue_Click"
-                        Style="{StaticResource btnVisbility}"
-                        DockPanel.Dock="Left">
+                            Content=""
+                            Margin="0"
+                            Click="AddDefaultValue_Click"
+                            Style="{StaticResource btnVisbility}"
+                            DockPanel.Dock="Left">
                     </Button>
                     <ItemsControl ItemsSource="{Binding DefaultValues}"
-                              VerticalAlignment="Center"
-                              Margin="3">
+                                  VerticalAlignment="Center"
+                                  Margin="3">
                         <ItemsControl.Resources>
                             <Style TargetType="ItemsControl">
 
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding DefaultValueType}"
-                                             Value="None">
+                                                 Value="None">
                                         <Setter Property="ItemTemplate">
                                             <Setter.Value>
                                                 <DataTemplate>
-                                                    <TextBlock Text="Set a default value"/>
+                                                    <TextBlock Text="Set a default value" />
                                                 </DataTemplate>
                                             </Setter.Value>
                                         </Setter>
@@ -120,25 +132,26 @@
                                 <StackPanel Margin="0 0 0 0">
                                     <DockPanel>
                                         <Button Content=""
-                                            FontFamily="segoe mdl2 assets"
-                                            Width="22"
-                                            Click="Button_Click_1"
-                                            Margin="-1 0 0 0"
-                                            DockPanel.Dock="Right"></Button>
+                                                Name="_removeDefaultValue"
+                                                FontFamily="segoe mdl2 assets"
+                                                Width="22"
+                                                Click="_removeDefaultValue_Click"
+                                                Margin="-1 0 0 0"
+                                                DockPanel.Dock="Right"></Button>
                                         <Button Content=""
-                                            FontFamily="segoe mdl2 assets"
-                                            Width="22"
-                                            Margin="0 0 -1 0"
-                                            Tag="moveUp"
-                                            Style="{StaticResource btnVisbility}"
-                                            DockPanel.Dock="Left" />
+                                                FontFamily="segoe mdl2 assets"
+                                                Width="22"
+                                                Margin="0 0 -1 0"
+                                                Tag="moveUp"
+                                                Style="{StaticResource btnVisbility}"
+                                                DockPanel.Dock="Left" />
                                         <Button Content=""
-                                            FontFamily="segoe mdl2 assets"
-                                            Width="22"
-                                            Margin="0 0 -1 0"
-                                            Style="{StaticResource btnVisbility}"
-                                            DockPanel.Dock="Left" />
-                                        <TextBox Text="{Binding DefaultValue}" />
+                                                FontFamily="segoe mdl2 assets"
+                                                Width="22"
+                                                Margin="0 0 -1 0"
+                                                Style="{StaticResource btnVisbility}"
+                                                DockPanel.Dock="Left" />
+                                        <TextBox Text="{Binding DefaultValue}" Padding="3 0" />
                                     </DockPanel>
                                 </StackPanel>
                             </DataTemplate>
@@ -148,31 +161,55 @@
             </Grid>
         </DataTemplate>
 
+        <Style TargetType="CheckBox"
+               x:Key="ColumnCheckBoxStyle">
+            <Setter Property="HorizontalAlignment"
+                    Value="Center" />
+        </Style>
+
+        <DataTemplate x:Key="NullableColumnTemplate">
+            <CheckBox IsChecked="{Binding Nullable}"
+                      Style="{StaticResource ColumnCheckBoxStyle}" />
+        </DataTemplate>
+
+        <DataTemplate x:Key="MultiValueColumnTemplate">
+            <CheckBox IsChecked="{Binding IsMultiValue}"
+                      Style="{StaticResource ColumnCheckBoxStyle}" />
+        </DataTemplate>
+
+        <DataTemplate x:Key="EmptyStringColumnTemplate">
+            <CheckBox IsEnabled="{Binding IsAllowBlankAvailable}"
+                      IsChecked="{Binding AllowBlank}"
+                      Style="{StaticResource ColumnCheckBoxStyle}" />
+        </DataTemplate>
 
     </Window.Resources>
 
     <DockPanel Margin="5">
         <StackPanel DockPanel.Dock="Bottom">
-            <Button Click="Button_Click_2" Content="Apply"/>
+            <Button Click="Button_Click_2"
+                    Content="Apply" />
         </StackPanel>
 
-        <StackPanel DockPanel.Dock="Top" Margin="3" Orientation="Horizontal">
+        <StackPanel DockPanel.Dock="Top"
+                    Margin="3"
+                    Orientation="Horizontal">
             <Button x:Name="_orderUp"
                     Width="20"
                     Height="20"
                     HorizontalAlignment="Left"
                     Content="up"
                     Click="_orderUp_Click"
-                    Margin="0 0 10 0"/>
+                    Margin="0 0 10 0" />
             <Button x:Name="_orderDown"
                     Width="20"
                     Height="20"
                     HorizontalAlignment="Left"
                     Content="down"
-                    Click="_orderDown_Click"/>
+                    Click="_orderDown_Click" />
         </StackPanel>
         <DataGrid ItemsSource="{Binding Parameters}"
-                  HeadersVisibility="Column" 
+                  HeadersVisibility="Column"
                   CanUserSortColumns="False"
                   SelectedValue="{Binding SelectedParameter}"
                   SelectionMode="Extended"
@@ -181,44 +218,33 @@
 
                 <DataGridTextColumn Width="auto"
                                     Header="Order"
-                                    Binding="{Binding Order}"/>
+                                    Binding="{Binding Order}" />
 
                 <DataGridTextColumn Width="auto"
                                     Header="Type"
-                                    Binding="{Binding Type}"/>
+                                    Binding="{Binding Type}" />
 
                 <DataGridTextColumn Width="auto"
                                     Header="Name}"
-                                    Binding="{Binding Name}"/>
- 
+                                    Binding="{Binding Name}" />
+
                 <DataGridTemplateColumn Width="auto"
-                                        Header="Nullable?" >
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <CheckBox IsChecked="{Binding Nullable}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                
-                <DataGridTemplateColumn Width="auto"
-                                        Header="Multi Value?">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <CheckBox IsChecked="{Binding IsMultiValue}" HorizontalAlignment="Center"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
+                                        Header="Nullable?"
+                                        CellTemplate="{StaticResource NullableColumnTemplate}">
                 </DataGridTemplateColumn>
 
                 <DataGridTemplateColumn Width="auto"
-                                        Header="Empty String?" >
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <CheckBox IsEnabled="{Binding IsAllowBlankAvailable}" IsChecked="{Binding AllowBlank}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
+                                        Header="Multi Value?"
+                                        CellTemplate="{StaticResource MultiValueColumnTemplate}">
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Width="*" CellTemplate="{StaticResource xx}" >
+                <DataGridTemplateColumn Width="auto"
+                                        Header="Empty String?"
+                                        CellTemplate="{StaticResource EmptyStringColumnTemplate}">
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="*"
+                                        CellTemplate="{StaticResource xx}">
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>

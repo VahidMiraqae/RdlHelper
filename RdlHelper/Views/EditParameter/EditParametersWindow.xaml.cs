@@ -29,14 +29,7 @@ namespace RdlHelper.Views.EditParameter
             Height = .9 * SystemParameters.PrimaryScreenHeight;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            if (sender is Button btn)
-            {
-                var dc = btn.DataContext;
-            }
-        }
+         
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
@@ -120,6 +113,14 @@ namespace RdlHelper.Views.EditParameter
             _pbcwVm.Parameters.RemoveAt(ind);
             _pbcwVm.Parameters.Insert(ind + 1, sp);
             _pbcwVm.SelectedParameter = sp;
+        }
+
+        private void _removeDefaultValue_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button btn && btn.DataContext is DefaultValueVm vpm)
+            {
+                
+            }
         }
     }
 }
